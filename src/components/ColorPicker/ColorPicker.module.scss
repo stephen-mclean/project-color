@@ -1,0 +1,25 @@
+.swatch {
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--swatch-bg);
+  cursor: pointer;
+}
+
+.swatchContainer {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.popover {
+  position: absolute;
+  z-index: 2;
+}
+
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
