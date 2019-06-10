@@ -1,0 +1,73 @@
+:root {
+  --btn-font-size: 0.875rem;
+  --btn-radius: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  position: relative;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--btn-radius);
+  font-size: --btn-font-size;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--colors-grey-base);
+  color: var(--colors-grey-lighten-65);
+  letter-spacing: 1.25px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  --btn-primary-color: var(--colors-grey-base);
+  --btn-darken-color: var(--colors-grey-darken-20);
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: var(--colors-grey-darken-20);
+  }
+}
+
+.btn--primary {
+  background-color: var(--colors-primary-base);
+  color: var(--colors-primary-lighten-35);
+
+  --btn-primary-color: var(--colors-primary-base);
+  --btn-darken-color: var(--colors-primary-darken-30);
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: var(--colors-primary-darken-30);
+  }
+}
+
+.btn--error {
+  background-color: var(--colors-error-base);
+  color: var(--colors-error-lighten-35);
+
+  --btn-primary-color: var(--colors-error-base);
+  --btn-darken-color: var(--colors-error-darken-30);
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: var(--colors-error-darken-30);
+  }
+}
+
+.btn--outline {
+  background-color: #ffffff;
+  border: 1px solid var(--btn-primary-color);
+  color: var(--btn-primary-color);
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #ffffff;
+    color: var(--btn-darken-color);
+    border-color: var(--btn-darken-color);
+  }
+}
