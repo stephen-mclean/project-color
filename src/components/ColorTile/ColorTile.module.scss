@@ -1,0 +1,11 @@
+.tile {
+  width: var(--color-tile-width);
+  height: var(--color-tile-height);
+  background-color: var(--color-tile-bg);
+}
+
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
