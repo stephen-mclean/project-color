@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+
+:root {
+  // font family
+  --font-primary: "Source Sans Pro", sans-serif;
+
+  // body font size
+  --text-base-size: 1em;
+
+  // type scale
+  --text-scale-ratio: 1.2;
+  --text-xs: calc((1em / var(--text-scale-ratio)) / var(--text-scale-ratio));
+  --text-sm: calc(var(--text-xs) * var(--text-scale-ratio));
+  --text-md: calc(
+    var(--text-sm) * var(--text-scale-ratio) * var(--text-scale-ratio)
+  );
+  --text-lg: calc(var(--text-md) * var(--text-scale-ratio));
+  --text-xl: calc(var(--text-lg) * var(--text-scale-ratio));
+  --text-xxl: calc(var(--text-xl) * var(--text-scale-ratio));
+  --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio));
+
+  // line-height
+  --body-line-height: 1.4;
+  --heading-line-height: 1.2;
+
+  // capital letters - used in combo with the lhCrop mixin
+  --font-primary-capital-letter: 1;
+}
+
+@supports (--css: variables) {
+  :root {
+    @include breakpoint(md) {
+      --text-base-size: 1.25em;
+      --text-scale-ratio: 1.25;
+    }
+  }
+}
+
+body {
+  font-size: var(--text-base-size);
+  font-family: var(--font-primary);
+  color: var(--colors-grey-darken-20);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--colors-grey-darken-20);
+  line-height: var(--heading-line-height);
+}
+
+// text size
+.text-xxxl,
+.text--xxxl {
+  font-size: var(--text-xxxl);
+}
+
+h1,
+.text-xxl,
+.text--xxl {
+  font-size: var(--text-xxl);
+}
+
+h2,
+.text-xl,
+.text--xl {
+  font-size: var(--text-xl);
+}
+
+h3,
+.text-lg,
+.text--lg {
+  font-size: var(--text-lg);
+}
+
+h4,
+.text-md,
+.text--md {
+  font-size: var(--text-md);
+}
+
+small,
+.text-sm,
+.text--sm {
+  font-size: var(--text-sm);
+}
+
+.text-xs,
+.text--xs {
+  font-size: var(--text-xs);
+}
+
+// inline text
+a,
+.link {
+  color: var(--colors-primary-base);
+  text-decoration: underline;
+}
+
+strong,
+.text-bold {
+  font-weight: bold;
+}
+
+s {
+  text-decoration: line-through;
+}
+
+u,
+.text-underline {
+  text-decoration: underline;
+}

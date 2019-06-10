@@ -1,0 +1,30 @@
+:root {
+  /* Grey */
+  --colors-grey-base: #474954;
+  --colors-grey-lighten-30: lighten(#474954, 30%);
+  --colors-grey-lighten-40: lighten(#474954, 40%);
+  --colors-grey-lighten-65: lighten(#474954, 65%);
+  --colors-grey-darken-10: darken(#474954, 10%);
+  --colors-grey-darken-20: darken(#474954, 20%);
+
+  /* White */
+  --colors-white: #f7f7ff;
+
+  /* Primary */
+  --colors-primary-base: #48acf0;
+  --colors-primary-lighten-20: lighten(#48acf0, 20%);
+  --colors-primary-lighten-30: lighten(#48acf0, 30%);
+  --colors-primary-lighten-35: lighten(#48acf0, 35%);
+  --colors-primary-darken-30: darken(#48acf0, 30%);
+
+  /* Success */
+  --colors-success-base: #00a676;
+  --colors-success-lighten-40: lighten(#00a676, 40%);
+  --colors-success-lighten-60: lighten(#00a676, 60%);
+
+  /* Error */
+  --colors-error-base: #fb3640;
+  --colors-lighten-25: lighten(#fb3640, 25%);
+  --colors-lighten-35: lighten(#fb3640, 35%);
+  --colors-darken-30: darken(#fb3640, 30%);
+}
