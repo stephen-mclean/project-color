@@ -1,0 +1,23 @@
+.pill {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  border-radius: 0.5rem;
+  padding: var(--component-padding-sm);
+}
+
+.defaultPill {
+  background-color: var(--colors-grey-base);
+  color: var(--colors-grey-lighten-65);
+}
+
+.success {
+  background-color: var(--colors-success-base);
+  color: var(--colors-success-lighten-60);
+}
+
+.error {
+  background-color: var(--colors-error-base);
+  color: var(--colors-error-lighten-35);
+}
