@@ -111,3 +111,27 @@ u,
 .text-underline {
   text-decoration: underline;
 }
+
+.text--colors-grey-base {
+  color: var(--colors-grey-base);
+}
+
+.text--colors-grey-lighten-30 {
+  color: var(--colors-grey-lighten-30);
+}
+
+.text--colors-grey-lighten-40 {
+  color: var(--colors-grey-lighten-40);
+}
+
+.text--colors-grey-lighten-65 {
+  color: var(--colors-grey-lighten-65);
+}
+
+.text--colors-grey-darken-10 {
+  color: var(--colors-grey-darken-10);
+}
+
+.text--colors-grey-darken-20 {
+  color: var(--colors-grey-darken-20);
+}
