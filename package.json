@@ -10,6 +10,7 @@
     "react-color": "^2.17.3",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
+    "react-spring": "^8.0.23",
     "tinycolor2": "^1.4.1"
   },
   "scripts": {
