@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import { useTrail, animated } from "react-spring";
 import styles from "./ColorPaletteList.module.scss";
 
 import ColorTile from "../ColorTile/ColorTile";
@@ -17,6 +18,7 @@ const ColorPaletteList = ({
   colors,
   direction,
   onColorClick,
+  animationRef,
   ...otherProps
 }) => {
   const headingClass = cx("margin-bottom--xs", {
@@ -34,20 +36,37 @@ const ColorPaletteList = ({
     "margin-right--xs": direction === ROW_DIRECTION
   });
 
+  const trailMargin =
+    direction === COL_DIRECTION ? "marginBottom" : "marginRight";
+  const trails = useTrail(colors.length, {
+    from: { [trailMargin]: 20, opacity: 0 },
+    to: { [trailMargin]: 0, opacity: 1 },
+    ref: animationRef
+  });
+
   return (
     <div {...otherProps}>
       <h4 className={headingClass}>{name}</h4>
       <div className={containerClass}>
-        {colors.map(color => (
-          <ColorTile
-            key={color.name}
-            color={color.color}
-            name={color.name}
-            size={color.isMain || direction === ROW_DIRECTION ? "md" : "sm"}
-            className={tileClass}
-            onClick={() => onColorClick(color)}
-          />
-        ))}
+        {trails.map((trailProps, idx) => {
+          const color = colors[idx];
+
+          return (
+            <animated.div
+              key={`animated-tile-${color.name}-${idx}`}
+              style={trailProps}
+            >
+              <ColorTile
+                key={color.name}
+                color={color.color}
+                name={color.name}
+                size={color.isMain || direction === ROW_DIRECTION ? "md" : "sm"}
+                className={tileClass}
+                onClick={() => onColorClick(color)}
+              />
+            </animated.div>
+          );
+        })}
       </div>
     </div>
   );
@@ -75,7 +94,11 @@ ColorPaletteList.propTypes = {
   /**
    * Callback for when a color in the list is clicked
    */
-  onColorClick: PropTypes.func
+  onColorClick: PropTypes.func,
+  /**
+   * Ref used to hook into the animation
+   */
+  animationRef: PropTypes.object
 };
 
 ColorPaletteList.defaultProps = {
