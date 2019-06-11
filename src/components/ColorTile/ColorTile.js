@@ -17,7 +17,9 @@ const ColorTile = ({
   className,
   ...otherProps
 }) => {
-  const tileClass = cx(styles.tile, "margin-bottom--xxs", className);
+  const containerClass = cx(styles.container, className);
+
+  const tileClass = cx(styles.tile);
   const dimension = TILE_SIZES[size];
   const tileStyle = {
     "--color-tile-width": dimension,
@@ -28,10 +30,12 @@ const ColorTile = ({
   const tile = <div style={tileStyle} className={tileClass} />;
 
   return (
-    <div className={styles.container} {...otherProps}>
+    <div className={containerClass} {...otherProps}>
       {tile}
       {!hideName && (
-        <small className="text--colors-grey-lighten-30">{name}</small>
+        <small className="text--colors-grey-lighten-30 margin-top--xxs">
+          {name}
+        </small>
       )}
     </div>
   );
