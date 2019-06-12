@@ -1,0 +1,24 @@
+.title {
+  display: inline-block;
+}
+
+.mainContent {
+  display: flex;
+  align-items: center;
+}
+
+.tileContainer {
+  display: flex;
+}
+
+.tile {
+  background-color: var(--tile-color);
+  width: 2rem;
+  height: 4rem;
+}
+
+.accessibilityContainer {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
