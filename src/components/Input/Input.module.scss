@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+}
+
+.containerCol {
+  flex-direction: column;
+}
+
+.containerRow {
+  flex-direction: row;
+  align-items: center;
+}
+
+.input {
+  height: 2rem;
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: stretch;
+  background-color: var(--colors-grey-lighten-65);
+  color: var(--colors-grey-base);
+  padding: var(--component-padding);
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+
+  ::placeholder {
+    color: var(--colors-grey-lighten-30);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: var(--colors-white);
+  }
+}
