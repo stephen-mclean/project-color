@@ -40,7 +40,7 @@ const ColorPicker = ({ color, onChange, swatchClassName }) => {
       {isPickerOpen && (
         <div className={styles.popover}>
           <div className={styles.cover} onClick={onSwatchClick} />
-          <ChromePicker color={color} onChange={onColorChange} />
+          <ChromePicker color={color} onChangeComplete={onColorChange} />
         </div>
       )}
     </div>

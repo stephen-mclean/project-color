@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
+import tinycolor from "tinycolor2";
 
-const PaletteContext = createContext();
+export const PaletteContext = createContext();
 
 const PaletteProvider = ({ children }) => {
   const [palette, setPalette] = useState({
@@ -9,7 +10,7 @@ const PaletteProvider = ({ children }) => {
         name: "color-one",
         base: {
           name: "color-one-base",
-          color: "#000000"
+          color: tinycolor.random().toHexString()
         },
         variants: []
       }
@@ -22,6 +23,16 @@ const PaletteProvider = ({ children }) => {
 
   const updateBaseColor = color => {
     console.log("update base", color);
+
+    const colorIdx = palette.colors.findIndex(c => color.name === c.name);
+
+    const newPalette = {
+      ...palette
+    };
+
+    newPalette.colors.splice(colorIdx, 1, color);
+
+    setPalette(newPalette);
   };
 
   const removeBaseColor = color => {
