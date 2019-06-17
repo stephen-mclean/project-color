@@ -12,7 +12,8 @@ const PaletteProvider = ({ children }) => {
         id: uuid(),
         base: {
           name: "base",
-          color: tinycolor.random().toHexString()
+          color: tinycolor.random().toHexString(),
+          isMain: true
         },
         variants: []
       }
@@ -25,7 +26,8 @@ const PaletteProvider = ({ children }) => {
       id: uuid(),
       base: {
         name: "base",
-        color: hex || tinycolor.random().toHexString()
+        color: hex || tinycolor.random().toHexString(),
+        isMain: true
       },
       variants: []
     };
