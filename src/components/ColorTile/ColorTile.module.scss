@@ -2,6 +2,7 @@
   width: var(--color-tile-width);
   height: var(--color-tile-height);
   background-color: var(--color-tile-bg);
+  border: 3px solid var(--color-tile-border-color);
 }
 
 .container {

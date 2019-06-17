@@ -12,7 +12,8 @@ const VariantGenerator = ({
   color,
   interval,
   onVariantClick,
-  onVariantDoubleClick
+  onVariantDoubleClick,
+  getCustomVariantStyles
 }) => {
   const lighter = useMemo(() => {
     const result = [];
@@ -103,6 +104,7 @@ const VariantGenerator = ({
         className="margin-bottom--xs"
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
+        getCustomTileStyle={getCustomVariantStyles}
       />
       <ColorPaletteList
         name="Darker"
@@ -111,6 +113,7 @@ const VariantGenerator = ({
         className="margin-bottom--xs"
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
+        getCustomTileStyle={getCustomVariantStyles}
       />
       <ColorPaletteList
         name="Desaturate"
@@ -119,6 +122,7 @@ const VariantGenerator = ({
         className="margin-bottom--xs"
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
+        getCustomTileStyle={getCustomVariantStyles}
       />
       <ColorPaletteList
         name="Saturate"
@@ -127,6 +131,7 @@ const VariantGenerator = ({
         className="margin-bottom--xs"
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
+        getCustomTileStyle={getCustomVariantStyles}
       />
     </div>
   );
@@ -148,13 +153,18 @@ VariantGenerator.propTypes = {
   /**
    * Callback for when a variant is double clicked
    */
-  onVariantDoubleClick: PropTypes.func
+  onVariantDoubleClick: PropTypes.func,
+  /**
+   * Pass in custom styles for a variant in the list
+   */
+  getCustomVariantStyles: PropTypes.func
 };
 
 VariantGenerator.defaultProps = {
   interval: 5,
   onVariantClick: () => {},
-  onVariantDoubleClick: () => {}
+  onVariantDoubleClick: () => {},
+  getCustomVariantStyles: () => ({})
 };
 
 export default VariantGenerator;

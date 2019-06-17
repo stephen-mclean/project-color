@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import tinycolor from "tinycolor2";
 
 import { PaletteContext } from "../../components/PaletteProvider/PaletteProvider";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
@@ -46,6 +47,34 @@ const VariantMode = () => {
     addBaseColor(variant.color);
   };
 
+  /**
+   * Return custom styles for a variant in the list.
+   */
+  const getCustomVariantStyles = (baseColor, variant) => {
+    const foundVariantIdx = baseColor.variants.findIndex(
+      v => v.name === variant.name
+    );
+    if (foundVariantIdx > -1) {
+      let variantComplement = tinycolor(variant.color)
+        .complement()
+        .toHexString();
+
+      variantComplement = tinycolor
+        .mostReadable(variant.color, [variantComplement], {
+          includeFallbackColors: true,
+          level: "AAA",
+          size: "large"
+        })
+        .toHexString();
+
+      return {
+        "--color-tile-border-color": variantComplement
+      };
+    }
+
+    return {};
+  };
+
   const tabs = palette.colors.map(color => <Tab>{color.name}</Tab>);
   tabs.push(<Tab>Add Color</Tab>);
 
@@ -63,6 +92,9 @@ const VariantMode = () => {
         color={color.base.color}
         onVariantClick={variant => toggleVariant(color, variant)}
         onVariantDoubleClick={addVariantAsBase}
+        getCustomVariantStyles={variant =>
+          getCustomVariantStyles(color, variant)
+        }
       />
     </TabPanel>
   ));
