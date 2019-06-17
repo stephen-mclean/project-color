@@ -6,16 +6,47 @@ import { PaletteContext } from "../../components/PaletteProvider/PaletteProvider
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import VariantGenerator from "../../components/VariantGenerator/VariantGenerator";
 
+import { VARIANT_TYPES } from "../../constants";
+
 import styles from "./VariantMode.module.scss";
 
 const VariantMode = () => {
   const { palette, updateBaseColor, addBaseColor } = useContext(PaletteContext);
+
+  const getUpdatedVariants = (hex, oldVariants) => {
+    const base = tinycolor(hex);
+    return oldVariants.map(variant => {
+      let updatedColor;
+      switch (variant.type) {
+        case VARIANT_TYPES.lighten:
+          updatedColor = base.lighten(variant.interval).toHexString();
+          break;
+        case VARIANT_TYPES.darken:
+          updatedColor = base.darken(variant.interval).toHexString();
+          break;
+        case VARIANT_TYPES.desaturate:
+          updatedColor = base.desaturate(variant.interval).toHexString();
+          break;
+        case VARIANT_TYPES.saturate:
+          updatedColor = base.saturate(variant.interval).toHexString();
+          break;
+        default:
+          console.warning("unable to update variant", variant);
+      }
+
+      return {
+        ...variant,
+        color: updatedColor
+      };
+    });
+  };
 
   const onBaseColorChange = (color, hex) => {
     const newColor = {
       ...color
     };
     newColor.base.color = hex;
+    newColor.variants = getUpdatedVariants(hex, newColor.variants);
 
     updateBaseColor(newColor);
   };
@@ -31,7 +62,7 @@ const VariantMode = () => {
   const toggleVariant = (baseColor, variant) => {
     const updatedColor = { ...baseColor };
     const variantIdx = updatedColor.variants.findIndex(
-      v => v.id === variant.id
+      v => v.name === variant.name
     );
 
     if (variantIdx > -1) {

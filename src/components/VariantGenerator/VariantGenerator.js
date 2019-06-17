@@ -4,6 +4,7 @@ import tinycolor from "tinycolor2";
 import uuid from "uuid";
 
 import ColorPaletteList from "../ColorPaletteList/ColorPaletteList";
+import { VARIANT_TYPES } from "../../constants";
 
 /**
  * Based on a base color, this component will generate lists of variants and display them.
@@ -26,7 +27,9 @@ const VariantGenerator = ({
       result.push({
         name: `lighten-${cumulitiveInterval}`,
         color: c.toHexString(),
-        id: uuid()
+        id: uuid(),
+        type: VARIANT_TYPES.lighten,
+        interval: cumulitiveInterval
       });
 
       cumulitiveInterval += interval;
@@ -46,7 +49,9 @@ const VariantGenerator = ({
       result.push({
         name: `darken-${cumulitiveInterval}`,
         color: c.toHexString(),
-        id: uuid()
+        id: uuid(),
+        type: VARIANT_TYPES.darken,
+        interval: cumulitiveInterval
       });
 
       cumulitiveInterval += interval;
@@ -66,7 +71,9 @@ const VariantGenerator = ({
       result.push({
         name: `desaturate-${cumulitiveInterval}`,
         color: c.toHexString(),
-        id: uuid()
+        id: uuid(),
+        type: VARIANT_TYPES.desaturate,
+        interval: cumulitiveInterval
       });
 
       cumulitiveInterval += interval;
@@ -86,7 +93,9 @@ const VariantGenerator = ({
       result.push({
         name: `saturate-${cumulitiveInterval}`,
         color: c.toHexString(),
-        id: uuid()
+        id: uuid(),
+        type: VARIANT_TYPES.saturate,
+        interval: cumulitiveInterval
       });
 
       cumulitiveInterval += interval;
