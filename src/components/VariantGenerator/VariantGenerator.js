@@ -125,7 +125,7 @@ const VariantGenerator = ({
         getCustomTileStyle={getCustomVariantStyles}
       />
       <ColorPaletteList
-        name="Desaturate"
+        name="Desaturated"
         colors={desaturate}
         direction="row"
         className="margin-bottom--xs"
@@ -134,7 +134,7 @@ const VariantGenerator = ({
         getCustomTileStyle={getCustomVariantStyles}
       />
       <ColorPaletteList
-        name="Saturate"
+        name="Saturated"
         colors={saturate}
         direction="row"
         className="margin-bottom--xs"

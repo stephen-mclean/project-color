@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import tinycolor from "tinycolor2";
+import cx from "classnames";
 
 import { PaletteContext } from "../../components/PaletteProvider/PaletteProvider";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
@@ -11,7 +13,12 @@ import { VARIANT_TYPES } from "../../constants";
 import styles from "./VariantMode.module.scss";
 
 const VariantMode = () => {
-  const { palette, updateBaseColor, addBaseColor } = useContext(PaletteContext);
+  const {
+    palette,
+    updateBaseColor,
+    addBaseColor,
+    removeBaseColor
+  } = useContext(PaletteContext);
 
   const getUpdatedVariants = (hex, oldVariants) => {
     const base = tinycolor(hex);
@@ -106,8 +113,30 @@ const VariantMode = () => {
     return {};
   };
 
-  const tabs = palette.colors.map(color => <Tab>{color.name}</Tab>);
-  tabs.push(<Tab>Add Color</Tab>);
+  const shouldShowCloseBtn = palette.colors.length > 1;
+  const tabClass = cx(styles.colorNameTabContainer, {
+    "margin-right--xs": shouldShowCloseBtn
+  });
+
+  const tabs = palette.colors.map(color => (
+    <Tab>
+      <div className={tabClass}>{color.name}</div>
+      {shouldShowCloseBtn && (
+        <FontAwesomeIcon
+          icon="times"
+          onClick={e => {
+            e.stopPropagation();
+            removeBaseColor(color);
+          }}
+        />
+      )}
+    </Tab>
+  ));
+  tabs.push(
+    <Tab>
+      <FontAwesomeIcon icon="plus" />
+    </Tab>
+  );
 
   const panels = palette.colors.map(color => (
     <TabPanel>

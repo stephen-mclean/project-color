@@ -51,6 +51,15 @@ const PaletteProvider = ({ children }) => {
 
   const removeBaseColor = color => {
     console.log("remove base color", color);
+
+    const colorIdx = palette.colors.findIndex(c => color.id === c.id);
+
+    const newPalette = {
+      ...palette
+    };
+
+    newPalette.colors.splice(colorIdx, 1);
+    setPalette(newPalette);
   };
 
   const getContextValue = () => {

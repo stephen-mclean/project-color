@@ -1,6 +1,8 @@
 import { configure, addDecorator } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";
 import { withInfo } from "@storybook/addon-info";
+
+import "../src/fontawesome/initFaIcons";
 import "../src/index.scss";
 
 addDecorator(
