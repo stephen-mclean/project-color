@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import tinycolor from "tinycolor2";
@@ -6,6 +6,7 @@ import cx from "classnames";
 
 import { PaletteContext } from "../../components/PaletteProvider/PaletteProvider";
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
+import Input from "../../components/Input/Input";
 import VariantGenerator from "../../components/VariantGenerator/VariantGenerator";
 
 import { VARIANT_TYPES } from "../../constants";
@@ -19,6 +20,8 @@ const VariantMode = () => {
     addBaseColor,
     removeBaseColor
   } = useContext(PaletteContext);
+
+  const [tabIndex, setTabIndex] = useState(0);
 
   const getUpdatedVariants = (hex, oldVariants) => {
     const base = tinycolor(hex);
@@ -58,10 +61,21 @@ const VariantMode = () => {
     updateBaseColor(newColor);
   };
 
+  const onBaseColorNameChange = (color, name) => {
+    const newColor = {
+      ...color
+    };
+    newColor.name = name;
+
+    updateBaseColor(newColor);
+  };
+
   const onTabSelect = index => {
     if (index === tabs.length - 1) {
       addBaseColor();
     }
+
+    setTabIndex(index);
 
     return true;
   };
@@ -118,20 +132,33 @@ const VariantMode = () => {
     "margin-right--xs": shouldShowCloseBtn
   });
 
-  const tabs = palette.colors.map(color => (
-    <Tab>
-      <div className={tabClass}>{color.name}</div>
-      {shouldShowCloseBtn && (
-        <FontAwesomeIcon
-          icon="times"
-          onClick={e => {
-            e.stopPropagation();
-            removeBaseColor(color);
-          }}
-        />
-      )}
-    </Tab>
-  ));
+  const tabs = palette.colors.map((color, index) => {
+    const shouldShowTabInput = tabIndex === index;
+    return (
+      <Tab>
+        <div className={tabClass}>
+          {!shouldShowTabInput && color.name}
+          {shouldShowTabInput && (
+            <Input
+              value={color.name}
+              onChange={e => {
+                onBaseColorNameChange(color, e.target.value);
+              }}
+            />
+          )}
+        </div>
+        {shouldShowCloseBtn && (
+          <FontAwesomeIcon
+            icon="times"
+            onClick={e => {
+              e.stopPropagation();
+              removeBaseColor(color);
+            }}
+          />
+        )}
+      </Tab>
+    );
+  });
   tabs.push(
     <Tab>
       <FontAwesomeIcon icon="plus" />

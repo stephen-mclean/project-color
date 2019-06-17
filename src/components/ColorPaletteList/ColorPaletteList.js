@@ -101,10 +101,6 @@ ColorPaletteList.propTypes = {
    */
   onColorClick: PropTypes.func,
   /**
-   * Callback for when a color in the list is double clicked
-   */
-  onColorClick: PropTypes.func,
-  /**
    * Ref used to hook into the animation
    */
   animationRef: PropTypes.object,
