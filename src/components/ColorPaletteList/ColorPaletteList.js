@@ -18,7 +18,9 @@ const ColorPaletteList = ({
   colors,
   direction,
   onColorClick,
+  onColorDoubleClick,
   animationRef,
+  getCustomTileStyle,
   ...otherProps
 }) => {
   const headingClass = cx("margin-bottom--xs", {
@@ -51,6 +53,7 @@ const ColorPaletteList = ({
         {trails.map((trailProps, idx) => {
           const color = colors[idx];
 
+          const customTileStyle = getCustomTileStyle(color);
           return (
             <animated.div
               key={`animated-tile-${color.name}-${idx}`}
@@ -63,6 +66,8 @@ const ColorPaletteList = ({
                 size={color.isMain || direction === ROW_DIRECTION ? "md" : "sm"}
                 className={tileClass}
                 onClick={() => onColorClick(color)}
+                onDoubleClick={() => onColorDoubleClick(color)}
+                customTileStyle={customTileStyle}
               />
             </animated.div>
           );
@@ -98,12 +103,18 @@ ColorPaletteList.propTypes = {
   /**
    * Ref used to hook into the animation
    */
-  animationRef: PropTypes.object
+  animationRef: PropTypes.object,
+  /**
+   * Pass custom styles for a particular color tile
+   */
+  getCustomTileStyle: PropTypes.func
 };
 
 ColorPaletteList.defaultProps = {
   direction: COL_DIRECTION,
-  onColorClick: () => {}
+  onColorClick: () => {},
+  onColorDoubleClick: () => {},
+  getCustomTileStyle: () => ({})
 };
 
 export default ColorPaletteList;

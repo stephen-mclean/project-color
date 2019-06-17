@@ -5,7 +5,12 @@ import { ChromePicker } from "react-color";
 import tinycolor from "tinycolor2";
 import styles from "./ColorPicker.module.scss";
 
-const ColorPicker = ({ color, onChange, swatchClassName }) => {
+const ColorPicker = ({
+  color,
+  onChange,
+  containerClassName,
+  swatchClassName
+}) => {
   const [isPickerOpen, setPickerOpen] = useState(false);
 
   const onSwatchClick = () => {
@@ -26,7 +31,7 @@ const ColorPicker = ({ color, onChange, swatchClassName }) => {
   const swatchClass = cx(styles.swatch, "margin-right", swatchClassName);
 
   return (
-    <div>
+    <div className={containerClassName}>
       <div className={styles.swatchContainer}>
         <div
           style={swatchStyle}
@@ -40,7 +45,7 @@ const ColorPicker = ({ color, onChange, swatchClassName }) => {
       {isPickerOpen && (
         <div className={styles.popover}>
           <div className={styles.cover} onClick={onSwatchClick} />
-          <ChromePicker color={color} onChange={onColorChange} />
+          <ChromePicker color={color} onChangeComplete={onColorChange} />
         </div>
       )}
     </div>
@@ -59,7 +64,11 @@ ColorPicker.propTypes = {
   /**
    * Custom classes to apply to the swatch
    */
-  swatchClassName: PropTypes.string
+  swatchClassName: PropTypes.string,
+  /**
+   * Classes to apply to the container
+   */
+  containerClassName: PropTypes.string
 };
 
 ColorPicker.defaultProps = {

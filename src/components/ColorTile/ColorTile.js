@@ -15,6 +15,7 @@ const ColorTile = ({
   hideName,
   size,
   className,
+  customTileStyle,
   ...otherProps
 }) => {
   const containerClass = cx(styles.container, className);
@@ -24,7 +25,9 @@ const ColorTile = ({
   const tileStyle = {
     "--color-tile-width": dimension,
     "--color-tile-height": dimension,
-    "--color-tile-bg": color
+    "--color-tile-bg": color,
+    "--color-tile-border-color": "transparent",
+    ...customTileStyle
   };
 
   const tile = <div style={tileStyle} className={tileClass} />;
@@ -57,12 +60,17 @@ ColorTile.propTypes = {
   /**
    * Size of the tile
    */
-  size: PropTypes.oneOf(["sm", "md", "lg"])
+  size: PropTypes.oneOf(["sm", "md", "lg"]),
+  /**
+   * Custom styles to apply to the tile element
+   */
+  customTileStyle: PropTypes.object
 };
 
 ColorTile.defaultProps = {
   size: "md",
-  hideName: true
+  hideName: true,
+  customTileStyle: {}
 };
 
 export default ColorTile;
