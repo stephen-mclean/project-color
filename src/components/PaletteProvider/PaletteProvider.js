@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import tinycolor from "tinycolor2";
+import uuid from "uuid";
 
 export const PaletteContext = createContext();
 
@@ -8,6 +9,7 @@ const PaletteProvider = ({ children }) => {
     colors: [
       {
         name: "color-one",
+        id: uuid(),
         base: {
           name: "color-one-base",
           color: tinycolor.random().toHexString()
@@ -17,14 +19,26 @@ const PaletteProvider = ({ children }) => {
     ]
   });
 
-  const addBaseColor = color => {
-    console.log("add base", color);
+  const addBaseColor = hex => {
+    const newColor = {
+      name: "new-color",
+      id: uuid(),
+      base: {
+        name: "new-color-base",
+        color: hex || tinycolor.random().toHexString()
+      },
+      variants: []
+    };
+
+    const newPalette = { ...palette };
+    newPalette.colors.push(newColor);
+
+    setPalette(newPalette);
   };
 
   const updateBaseColor = color => {
-    console.log("update base", color);
-
-    const colorIdx = palette.colors.findIndex(c => color.name === c.name);
+    console.log("update base color", color);
+    const colorIdx = palette.colors.findIndex(c => color.id === c.id);
 
     const newPalette = {
       ...palette

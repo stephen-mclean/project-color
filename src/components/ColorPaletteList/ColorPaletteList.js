@@ -18,6 +18,7 @@ const ColorPaletteList = ({
   colors,
   direction,
   onColorClick,
+  onColorDoubleClick,
   animationRef,
   ...otherProps
 }) => {
@@ -63,6 +64,7 @@ const ColorPaletteList = ({
                 size={color.isMain || direction === ROW_DIRECTION ? "md" : "sm"}
                 className={tileClass}
                 onClick={() => onColorClick(color)}
+                onDoubleClick={() => onColorDoubleClick(color)}
               />
             </animated.div>
           );
@@ -96,6 +98,10 @@ ColorPaletteList.propTypes = {
    */
   onColorClick: PropTypes.func,
   /**
+   * Callback for when a color in the list is double clicked
+   */
+  onColorClick: PropTypes.func,
+  /**
    * Ref used to hook into the animation
    */
   animationRef: PropTypes.object
@@ -103,7 +109,8 @@ ColorPaletteList.propTypes = {
 
 ColorPaletteList.defaultProps = {
   direction: COL_DIRECTION,
-  onColorClick: () => {}
+  onColorClick: () => {},
+  onColorDoubleClick: () => {}
 };
 
 export default ColorPaletteList;
