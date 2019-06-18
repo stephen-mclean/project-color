@@ -6,7 +6,7 @@ import Pill from "./Pill";
 
 storiesOf("Components", module).add("Pill", () => {
   return (
-    <Pill type={select("type", ["default", "success", "error"])}>
+    <Pill type={select("type", ["success", "error"], "")}>
       {text("text", "Pill")}
     </Pill>
   );

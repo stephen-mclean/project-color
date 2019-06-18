@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useMemo } from "react";
 import tinycolor from "tinycolor2";
 import uuid from "uuid";
 
@@ -21,6 +21,13 @@ const PaletteProvider = ({ children }) => {
     ],
     pairs: []
   });
+
+  const flatColors = useMemo(() => {
+    return palette.colors.reduce(
+      (acc, color) => [...acc, ...[color.base, ...color.variants]],
+      []
+    );
+  }, [palette]);
 
   const addBaseColor = hex => {
     const newColor = {
@@ -100,7 +107,8 @@ const PaletteProvider = ({ children }) => {
       updateBaseColor,
       removeBaseColor,
       addColorPair,
-      removeColorPair
+      removeColorPair,
+      flatColors
     };
   };
 
