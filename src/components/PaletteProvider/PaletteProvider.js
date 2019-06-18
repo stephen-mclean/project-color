@@ -12,11 +12,14 @@ const PaletteProvider = ({ children }) => {
         id: uuid(),
         base: {
           name: "base",
-          color: tinycolor.random().toHexString()
+          id: uuid(),
+          color: tinycolor.random().toHexString(),
+          isMain: true
         },
         variants: []
       }
-    ]
+    ],
+    pairs: []
   });
 
   const addBaseColor = hex => {
@@ -25,7 +28,9 @@ const PaletteProvider = ({ children }) => {
       id: uuid(),
       base: {
         name: "base",
-        color: hex || tinycolor.random().toHexString()
+        id: uuid(),
+        color: hex || tinycolor.random().toHexString(),
+        isMain: true
       },
       variants: []
     };
@@ -62,12 +67,40 @@ const PaletteProvider = ({ children }) => {
     setPalette(newPalette);
   };
 
+  const addColorPair = (background, foreground) => {
+    const pair = {
+      id: uuid(),
+      bg: background.id,
+      fg: foreground.id
+    };
+
+    const newPalette = { ...palette };
+    newPalette.pairs.push(pair);
+
+    console.log("new palette with pair", newPalette);
+
+    setPalette(newPalette);
+  };
+
+  const removeColorPair = pair => {
+    const idx = palette.pairs.findIndex(p => p.id === pair.id);
+    if (idx > -1) {
+      const newPalette = { ...palette };
+      newPalette.pairs.splice(idx, 1);
+
+      console.log("new palette without pair", newPalette);
+      setPalette(newPalette);
+    }
+  };
+
   const getContextValue = () => {
     return {
       palette,
       addBaseColor,
       updateBaseColor,
-      removeBaseColor
+      removeBaseColor,
+      addColorPair,
+      removeColorPair
     };
   };
 
