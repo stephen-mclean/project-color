@@ -6,8 +6,8 @@ import PaletteProvider from "../PaletteProvider/PaletteProvider";
 import PaletteMode from "../../pages/Palette/PaletteMode";
 import VariantMode from "../../pages/Variant/VariantMode";
 
-storiesOf("Examples", module).add("Palette Mode", () => {
-  const mode = select("Mode", ["variant", "palette"], "palette");
+storiesOf("Examples", module).add("Mode Viewer", () => {
+  const mode = select("Mode", ["variant", "palette"], "variant");
   return (
     <PaletteProvider>
       {mode === "variant" && <VariantMode />}
