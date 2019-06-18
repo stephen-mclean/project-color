@@ -1,13 +1,37 @@
-import React from "react";
-import logo from "./Large.svg";
+import React, { Fragment } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import { VARIANT_ROUTE, PALETTE_ROUTE, ACCESSIBILITY_ROUTE } from "./constants";
+import Nav from "./components/Nav/Nav";
 import "./App.scss";
 
 function App() {
   return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
-      <h1>rainbo</h1>
-    </div>
+    <Fragment>
+      <Nav />
+
+      <Router>
+        <Switch>
+          <Route
+            path={VARIANT_ROUTE.path}
+            component={VARIANT_ROUTE.component}
+          />
+          <Route
+            path={PALETTE_ROUTE.path}
+            component={PALETTE_ROUTE.component}
+          />
+          <Route
+            path={ACCESSIBILITY_ROUTE.path}
+            component={ACCESSIBILITY_ROUTE.component}
+          />
+          <Redirect from="/" to={VARIANT_ROUTE.path} />
+        </Switch>
+      </Router>
+    </Fragment>
   );
 }
 
