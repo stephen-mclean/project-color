@@ -8,19 +8,21 @@ import styles from "./AccessibilityMode.module.scss";
 const AccessibilityMode = () => {
   const {
     palette: { pairs },
-    flatColors
+    flatColors,
+    removeColorPair
   } = useContext(PaletteContext);
 
   const mappedPairs = useMemo(() => {
     return pairs.map(pair => {
       return {
+        id: pair.id,
         background: flatColors.find(c => c.id === pair.bg),
         foreground: flatColors.find(c => c.id === pair.fg)
       };
     });
   }, [pairs, flatColors]);
 
-  console.log("mapped pairs", mappedPairs);
+  const onPairCloseBtnClick = pair => removeColorPair(pair);
 
   return (
     <div className={styles.container}>
@@ -28,6 +30,7 @@ const AccessibilityMode = () => {
         <AccessiblePair
           className="margin-right--xl margin-bottom--lg"
           {...pair}
+          onCloseBtnClick={() => onPairCloseBtnClick(pair)}
         />
       ))}
     </div>
