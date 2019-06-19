@@ -4,15 +4,20 @@ import Accessibility from "../pages/Accessibility/AccessibilityMode";
 
 export const VARIANT_ROUTE = {
   path: "/variant",
-  component: Variant
+  component: Variant,
+  name: "Variant Mode"
 };
 
 export const PALETTE_ROUTE = {
   path: "/palette",
-  component: Palette
+  component: Palette,
+  name: "Palette Mode"
 };
 
 export const ACCESSIBILITY_ROUTE = {
   path: "/accessibility",
-  component: Accessibility
+  component: Accessibility,
+  name: "Accessibility Mode"
 };
+
+export const ALL_ROUTES = [VARIANT_ROUTE, PALETTE_ROUTE, ACCESSIBILITY_ROUTE];
