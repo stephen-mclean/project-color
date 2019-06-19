@@ -22,12 +22,13 @@
 
   --btn-primary-color: var(--colors-grey-base);
   --btn-darken-color: var(--colors-grey-darken-20);
+}
 
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: var(--colors-grey-darken-20);
-  }
+.btn:hover,
+.btn:active,
+.btn:focus,
+.btn--active {
+  background-color: var(--btn-darken-color);
 }
 
 .btn--primary {
@@ -36,12 +37,6 @@
 
   --btn-primary-color: var(--colors-primary-base);
   --btn-darken-color: var(--colors-primary-darken-30);
-
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: var(--colors-primary-darken-30);
-  }
 }
 
 .btn--error {
@@ -50,12 +45,6 @@
 
   --btn-primary-color: var(--colors-error-base);
   --btn-darken-color: var(--colors-error-darken-30);
-
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: var(--colors-error-darken-30);
-  }
 }
 
 .btn--outline {
