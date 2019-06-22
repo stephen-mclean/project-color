@@ -1,16 +1,12 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import cx from "classnames";
 import { ChromePicker } from "react-color";
-import tinycolor from "tinycolor2";
+
+import ColorTile from "../ColorTile/ColorTile";
+
 import styles from "./ColorPicker.module.scss";
 
-const ColorPicker = ({
-  color,
-  onChange,
-  containerClassName,
-  swatchClassName
-}) => {
+const ColorPicker = ({ color, onChange, className, tileClassName }) => {
   const [isPickerOpen, setPickerOpen] = useState(false);
 
   const onSwatchClick = () => {
@@ -21,27 +17,16 @@ const ColorPicker = ({
     onChange(color.hex);
   };
 
-  const colorDisplayName = useMemo(() => tinycolor(color).toHexString(), [
-    color
-  ]);
-
-  const swatchStyle = {
-    "--swatch-bg": color
-  };
-  const swatchClass = cx(styles.swatch, "margin-right", swatchClassName);
-
   return (
-    <div className={containerClassName}>
-      <div className={styles.swatchContainer}>
-        <div
-          style={swatchStyle}
-          className={swatchClass}
-          onClick={onSwatchClick}
-        />
-        <span className="text--colors-grey-base text-sm">
-          {colorDisplayName}
-        </span>
-      </div>
+    <div className={className}>
+      <ColorTile
+        color={color}
+        onClick={onSwatchClick}
+        hideHex={false}
+        size="lg"
+        className={tileClassName}
+      />
+
       {isPickerOpen && (
         <div className={styles.popover}>
           <div className={styles.cover} onClick={onSwatchClick} />
@@ -62,13 +47,9 @@ ColorPicker.propTypes = {
    */
   onChange: PropTypes.func,
   /**
-   * Custom classes to apply to the swatch
+   * Custom classes to apply to the color tile
    */
-  swatchClassName: PropTypes.string,
-  /**
-   * Classes to apply to the container
-   */
-  containerClassName: PropTypes.string
+  tileClassName: PropTypes.string
 };
 
 ColorPicker.defaultProps = {
