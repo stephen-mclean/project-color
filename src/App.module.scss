@@ -5,9 +5,11 @@
     "main"
     "footer";
   grid-template-rows: 4rem 1fr 4rem;
+  height: 100%;
 }
 
 .container {
-  margin: var(--space-lg);
+  padding: var(--space-lg);
   grid-area: main;
+  height: 100%;
 }
