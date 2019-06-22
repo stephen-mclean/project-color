@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import tinycolor from "tinycolor2";
 import styles from "./ColorTile.module.scss";
 
 const TILE_SIZES = {
@@ -13,6 +14,7 @@ const ColorTile = ({
   color,
   name,
   hideName,
+  hideHex,
   size,
   className,
   customTileStyle,
@@ -20,7 +22,9 @@ const ColorTile = ({
 }) => {
   const containerClass = cx(styles.container, className);
 
-  const tileClass = cx(styles.tile);
+  const tileClass = cx(styles.tile, {
+    "margin-bottom--xxs": !hideName || !hideHex
+  });
   const dimension = TILE_SIZES[size];
   const tileStyle = {
     "--color-tile-width": dimension,
@@ -29,16 +33,19 @@ const ColorTile = ({
     "--color-tile-border-color": "transparent",
     ...customTileStyle
   };
-
   const tile = <div style={tileStyle} className={tileClass} />;
 
+  const nameClass = cx("text--colors-grey-lighten-30", {
+    "margin-bottom--xxs": !hideHex
+  });
+
+  const hex = useMemo(() => tinycolor(color).toHexString(), [color]);
   return (
     <div className={containerClass} {...otherProps}>
       {tile}
-      {!hideName && (
-        <small className="text--colors-grey-lighten-30 margin-top--xxs">
-          {name}
-        </small>
+      {!hideName && <small className={nameClass}>{name}</small>}
+      {!hideHex && (
+        <small className="text--colors-grey-lighten-30">{hex}</small>
       )}
     </div>
   );
@@ -58,6 +65,10 @@ ColorTile.propTypes = {
    */
   hideName: PropTypes.bool,
   /**
+   * Hide the hex color value display if true
+   */
+  hideHex: PropTypes.bool,
+  /**
    * Size of the tile
    */
   size: PropTypes.oneOf(["sm", "md", "lg"]),
@@ -70,6 +81,7 @@ ColorTile.propTypes = {
 ColorTile.defaultProps = {
   size: "md",
   hideName: true,
+  hideHex: true,
   customTileStyle: {}
 };
 

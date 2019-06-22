@@ -9,8 +9,9 @@ storiesOf("Components", module).add("Color Tile", () => {
     <Fragment>
       <ColorTile
         color={color("Color", "#000000")}
-        name={text("name")}
-        hideName={boolean("hideName", true)}
+        name={text("Name")}
+        hideName={boolean("Hide Name", true)}
+        hideHex={boolean("Hide HEX", true)}
       />
     </Fragment>
   );
