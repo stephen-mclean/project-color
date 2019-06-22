@@ -10,6 +10,7 @@ storiesOf("Components", module).add("Button", () => {
       <Button className="btn btn--primary">Primary</Button>
       <Button className="btn btn--error">Danger</Button>
       <Button className="btn btn--outline">Outline</Button>
+      <Button className="btn btn--link">Link</Button>
     </Fragment>
   );
 });

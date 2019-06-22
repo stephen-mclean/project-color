@@ -1,3 +1,13 @@
+.appContainer {
+  display: grid;
+  grid-template-areas:
+    "nav"
+    "main"
+    "footer";
+  grid-template-rows: 4rem 1fr 4rem;
+}
+
 .container {
   margin: var(--space-lg);
+  grid-area: main;
 }

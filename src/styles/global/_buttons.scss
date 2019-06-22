@@ -48,15 +48,32 @@
 }
 
 .btn--outline {
-  background-color: #ffffff;
+  --btn--outline-bg-color: transparent;
+
+  background-color: var(--btn--outline-bg-color);
   border: 1px solid var(--btn-primary-color);
   color: var(--btn-primary-color);
 
   &:hover,
   &:active,
   &:focus {
-    background-color: #ffffff;
+    background-color: var(--btn--outline-bg-color);
     color: var(--btn-darken-color);
     border-color: var(--btn-darken-color);
+  }
+}
+
+.btn--link {
+  --btn--link-bg-color: transparent;
+
+  background-color: var(--btn--link-bg-color);
+  color: var(--btn-primary-color);
+  text-transform: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: var(--btn--link-bg-color);
+    color: var(--btn-darken-color);
   }
 }
