@@ -21,7 +21,7 @@ const ModeSwitcher = ({ history, location, ...otherProps }) => {
   return (
     <div {...otherProps}>
       <ButtonGroup alignment="center" className="margin-bottom--lg">
-        {ALL_ROUTES.map(route => {
+        {ALL_ROUTES.filter(route => route.showInNav).map(route => {
           const btnClass = cx("btn btn--default margin-right", {
             "btn--active": isActive(route.path)
           });

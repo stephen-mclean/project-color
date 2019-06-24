@@ -15,11 +15,11 @@ import styles from "./App.module.scss";
 function App() {
   return (
     <PaletteProvider>
-      <div className={styles.appContainer}>
-        <Nav />
+      <Router>
+        <div className={styles.appContainer}>
+          <Nav />
 
-        <div className={styles.container}>
-          <Router>
+          <div className={styles.container}>
             <ModeSwitcher className="margin-bottom--lg" />
             <Switch>
               {ALL_ROUTES.map(route => (
@@ -31,11 +31,11 @@ function App() {
               ))}
               <Redirect from="/" to={VARIANT_ROUTE.path} />
             </Switch>
-          </Router>
-        </div>
+          </div>
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      </Router>
     </PaletteProvider>
   );
 }
