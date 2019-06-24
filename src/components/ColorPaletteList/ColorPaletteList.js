@@ -63,11 +63,13 @@ const ColorPaletteList = ({
                 key={color.name}
                 color={color.color}
                 name={color.name}
-                size={color.isMain || direction === ROW_DIRECTION ? "md" : "sm"}
+                size={color.isMain ? "lg" : "md"}
                 className={tileClass}
                 onClick={() => onColorClick(color)}
                 onDoubleClick={() => onColorDoubleClick(color)}
                 customTileStyle={customTileStyle}
+                hideName={false}
+                hideHex={false}
               />
             </animated.div>
           );
