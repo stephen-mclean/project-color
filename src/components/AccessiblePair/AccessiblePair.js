@@ -46,8 +46,8 @@ const AccessiblePair = ({
     size: "small"
   });
 
-  const aaDisplayText = isAAPass ? "WCAG AA Pass" : "WCAG AA Fail";
-  const aaaDisplayText = isAAAPass ? "WCAG AAA Pass" : "WCAG AAA Fail";
+  const aaDisplayText = "WCAG AA";
+  const aaaDisplayText = "WCAG AAA";
   const aaPillType = isAAPass ? "success" : "error";
   const aaaPillType = isAAAPass ? "success" : "error";
 
@@ -70,14 +70,13 @@ const AccessiblePair = ({
           <div style={fgTileStyle} className={styles.tile} />
         </div>
 
-        <div>
-          <div className="margin-bottom">
-            <Pill type={aaPillType} className="margin-right--xxs">
-              {aaDisplayText}
-            </Pill>
-            <Pill type={aaaPillType}>{aaaDisplayText}</Pill>
-          </div>
-
+        <div className={styles.pillContainer}>
+          <Pill type={aaPillType} className="margin-bottom--xxs">
+            {aaDisplayText}
+          </Pill>
+          <Pill type={aaaPillType} className="margin-bottom--xxs">
+            {aaaDisplayText}
+          </Pill>
           <Pill style={examplePillStyle}>This is how text will look</Pill>
         </div>
       </div>
