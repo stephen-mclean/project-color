@@ -10,12 +10,13 @@ import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
 import ModeSwitcher from "./components/ModeSwitcher/ModeSwitcher";
 import PaletteProvider from "./components/PaletteProvider/PaletteProvider";
+import EditorPanel from "./components/EditorPanel/EditorPanel";
 import styles from "./App.module.scss";
 
 function App() {
   return (
-    <PaletteProvider>
-      <Router>
+    <Router>
+      <PaletteProvider>
         <div className={styles.appContainer}>
           <Nav />
 
@@ -33,10 +34,12 @@ function App() {
             </Switch>
           </div>
 
+          <EditorPanel />
+
           <Footer />
         </div>
-      </Router>
-    </PaletteProvider>
+      </PaletteProvider>
+    </Router>
   );
 }
 

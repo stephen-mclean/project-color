@@ -1,10 +1,13 @@
 import React, { createContext, useState, useMemo } from "react";
 import tinycolor from "tinycolor2";
 import uuid from "uuid";
+import { withRouter } from "react-router-dom";
+
+import { ALL_ROUTES } from "../../constants";
 
 export const PaletteContext = createContext();
 
-const PaletteProvider = ({ children }) => {
+const PaletteProvider = ({ children, location }) => {
   const [palette, setPalette] = useState({
     colors: [
       {
@@ -28,6 +31,11 @@ const PaletteProvider = ({ children }) => {
       []
     );
   }, [palette]);
+
+  const currentMode = useMemo(() => {
+    const currentRoute = ALL_ROUTES.find(r => r.path === location.pathname);
+    return currentRoute ? currentRoute.mode : null;
+  }, [location.pathname]);
 
   const addBaseColor = hex => {
     const newColor = {
@@ -108,7 +116,8 @@ const PaletteProvider = ({ children }) => {
       removeBaseColor,
       addColorPair,
       removeColorPair,
-      flatColors
+      flatColors,
+      currentMode
     };
   };
 
@@ -119,4 +128,4 @@ const PaletteProvider = ({ children }) => {
   );
 };
 
-export default PaletteProvider;
+export default withRouter(PaletteProvider);
