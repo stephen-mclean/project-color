@@ -6,23 +6,17 @@ import { select } from "@storybook/addon-knobs";
 import PaletteProvider from "../PaletteProvider/PaletteProvider";
 import PaletteMode from "../../pages/Palette/PaletteMode";
 import VariantMode from "../../pages/Variant/VariantMode";
-import AccessibilityMode from "../../pages/Accessibility/AccessibilityMode";
 
 storiesOf("Examples", module)
   .addDecorator(story => (
     <MemoryRouter initialEntries={["/variant"]}>{story()}</MemoryRouter>
   ))
   .add("Mode Viewer", () => {
-    const mode = select(
-      "Mode",
-      ["variant", "palette", "accessibility"],
-      "variant"
-    );
+    const mode = select("Mode", ["variant", "palette"], "variant");
     return (
       <PaletteProvider>
         {mode === "variant" && <VariantMode />}
         {mode === "palette" && <PaletteMode />}
-        {mode === "accessibility" && <AccessibilityMode />}
       </PaletteProvider>
     );
   });

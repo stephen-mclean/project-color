@@ -1,6 +1,5 @@
 import Variant from "../pages/Variant/VariantMode";
 import Palette from "../pages/Palette/PaletteMode";
-import Accessibility from "../pages/Accessibility/AccessibilityMode";
 import About from "../pages/About/About";
 import { VARIANT_MODE, PALETTE_MODE } from "./modes";
 
@@ -24,14 +23,6 @@ export const PALETTE_ROUTE = {
   mode: PALETTE_MODE
 };
 
-export const ACCESSIBILITY_ROUTE = {
-  path: "/accessibility",
-  component: Accessibility,
-  name: "Accessibility",
-  description: "Ensure your chosen color pairs are accessible.",
-  showInNav: true
-};
-
 export const ABOUT_ROUTE = {
   path: "/about",
   component: About,
@@ -39,9 +30,4 @@ export const ABOUT_ROUTE = {
   showInNav: false
 };
 
-export const ALL_ROUTES = [
-  VARIANT_ROUTE,
-  PALETTE_ROUTE,
-  ACCESSIBILITY_ROUTE,
-  ABOUT_ROUTE
-];
+export const ALL_ROUTES = [VARIANT_ROUTE, PALETTE_ROUTE, ABOUT_ROUTE];
