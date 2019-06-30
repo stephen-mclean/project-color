@@ -7,12 +7,13 @@ import Button from "../Button/Button";
 import { VARIANT_MODE } from "../../constants";
 
 import styles from "./EditorPanel.module.scss";
+import PaletteView from "./components/PaletteView";
 
 const PALETTE_VIEW = "palette_view";
 const PAIRS_VIEW = "pairs_view";
 
 const EditorPanel = () => {
-  const { currentMode } = useContext(PaletteContext);
+  const { currentMode, palette } = useContext(PaletteContext);
   const [currentView, setCurrentView] = useState(
     currentMode === VARIANT_MODE ? PALETTE_VIEW : PAIRS_VIEW
   );
@@ -43,9 +44,14 @@ const EditorPanel = () => {
   };
 
   const renderCurrentView = () => {
+    const currentColor = palette.colors.find(
+      c => c.id === palette.currentSelectedColor
+    );
     return (
       <div>
-        {currentView === PALETTE_VIEW && <div>palette view</div>}
+        {currentView === PALETTE_VIEW && (
+          <PaletteView colors={[currentColor.base, ...currentColor.variants]} />
+        )}
         {currentView === PAIRS_VIEW && <div>pairs view</div>}
       </div>
     );

@@ -8,21 +8,24 @@ import { ALL_ROUTES } from "../../constants";
 export const PaletteContext = createContext();
 
 const PaletteProvider = ({ children, location }) => {
+  const defaultBaseColorID = uuid();
+  const defaultBaseColorBaseID = uuid();
   const [palette, setPalette] = useState({
     colors: [
       {
         name: "color-one",
-        id: uuid(),
+        id: defaultBaseColorID,
         base: {
           name: "base",
-          id: uuid(),
+          id: defaultBaseColorBaseID,
           color: tinycolor.random().toHexString(),
           isMain: true
         },
         variants: []
       }
     ],
-    pairs: []
+    pairs: [],
+    currentSelectedColor: defaultBaseColorID
   });
 
   const flatColors = useMemo(() => {

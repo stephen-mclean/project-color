@@ -48,7 +48,7 @@ const ColorPaletteList = ({
 
   return (
     <div {...otherProps}>
-      <h4 className={headingClass}>{name}</h4>
+      <h4 className={headingClass}>{name || ""}</h4>
       <div className={containerClass}>
         {trails.map((trailProps, idx) => {
           const color = colors[idx];
@@ -83,7 +83,7 @@ ColorPaletteList.propTypes = {
   /**
    * Name of the list
    */
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   /**
    * The list of colors to display
    */

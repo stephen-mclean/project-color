@@ -3,7 +3,8 @@ import {
   faPlus,
   faTimes,
   faCheck,
-  faExchangeAlt
+  faExchangeAlt,
+  faBox
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlus, faTimes, faCheck, faExchangeAlt);
+library.add(faPlus, faTimes, faCheck, faExchangeAlt, faBox);
