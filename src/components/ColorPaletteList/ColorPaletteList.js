@@ -21,6 +21,7 @@ const ColorPaletteList = ({
   onColorDoubleClick,
   animationRef,
   getCustomTileStyle,
+  renderTileBy,
   ...otherProps
 }) => {
   const headingClass = cx("margin-bottom--xs", {
@@ -52,25 +53,13 @@ const ColorPaletteList = ({
       <div className={containerClass}>
         {trails.map((trailProps, idx) => {
           const color = colors[idx];
-
-          const customTileStyle = getCustomTileStyle(color);
+          const onClick = () => onColorClick(color);
           return (
             <animated.div
               key={`animated-tile-${color.name}-${idx}`}
               style={trailProps}
             >
-              <ColorTile
-                key={color.name}
-                color={color.color}
-                name={color.name}
-                size={color.isMain ? "lg" : "md"}
-                className={tileClass}
-                onClick={() => onColorClick(color)}
-                onDoubleClick={() => onColorDoubleClick(color)}
-                customTileStyle={customTileStyle}
-                hideName={false}
-                hideHex={false}
-              />
+              {renderTileBy(color, tileClass, onClick, false, false)}
             </animated.div>
           );
         })}
@@ -109,14 +98,30 @@ ColorPaletteList.propTypes = {
   /**
    * Pass custom styles for a particular color tile
    */
-  getCustomTileStyle: PropTypes.func
+  getCustomTileStyle: PropTypes.func,
+  /**
+   * Render prop to render the color tile
+   */
+  renderTileBy: PropTypes.func
 };
 
 ColorPaletteList.defaultProps = {
   direction: COL_DIRECTION,
   onColorClick: () => {},
   onColorDoubleClick: () => {},
-  getCustomTileStyle: () => ({})
+  getCustomTileStyle: () => ({}),
+  renderTileBy: (color, className, onClick, hideName, hideHex) => (
+    <ColorTile
+      key={color.name}
+      color={color.color}
+      name={color.name}
+      size={color.isMain ? "lg" : "md"}
+      className={className}
+      onClick={onClick}
+      hideName={hideName}
+      hideHex={hideHex}
+    />
+  )
 };
 
 export default ColorPaletteList;
