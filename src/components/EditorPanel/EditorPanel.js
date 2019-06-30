@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect, useMemo } from "react";
+import { useDrop } from "react-dnd";
 import cx from "classnames";
 
 import { PaletteContext } from "../PaletteProvider/PaletteProvider";
 import ButtonGroup from "../ButtonGroup/ButtonGroup";
 import Button from "../Button/Button";
-import { VARIANT_MODE, PALETTE_MODE } from "../../constants";
+import { VARIANT_MODE, PALETTE_MODE, COLOR_TILE } from "../../constants";
 
 import styles from "./EditorPanel.module.scss";
 import PaletteView from "./components/PaletteView";
@@ -14,8 +15,14 @@ const PALETTE_VIEW = "palette_view";
 const PAIRS_VIEW = "pairs_view";
 
 const EditorPanel = () => {
-  const { currentMode, palette, flatColors } = useContext(PaletteContext);
+  const { currentMode, palette, flatColors, updateBaseColor } = useContext(
+    PaletteContext
+  );
   const { pairs } = palette;
+
+  const currentColor = palette.colors.find(
+    c => c.id === palette.currentSelectedColor
+  );
 
   const mappedPairs = useMemo(() => {
     return pairs.map(pair => {
@@ -65,21 +72,47 @@ const EditorPanel = () => {
   };
 
   const renderCurrentView = () => {
-    const currentColor = palette.colors.find(
-      c => c.id === palette.currentSelectedColor
-    );
     return (
       <div>
         {currentView === PALETTE_VIEW && (
-          <PaletteView colors={[currentColor.base, ...currentColor.variants]} />
+          <PaletteView colors={currentColor.variants} />
         )}
         {currentView === PAIRS_VIEW && <PairsView pairs={mappedPairs} />}
       </div>
     );
   };
 
+  const addVariantToCurrentSelectedColor = variant => {
+    const updatedColor = { ...currentColor };
+
+    const variantIdx = updatedColor.variants.findIndex(
+      v => v.name === variant.name
+    );
+
+    if (variantIdx === -1) {
+      updatedColor.variants.push(variant);
+      updateBaseColor(updatedColor);
+    }
+  };
+
+  const [{ canDrop }, drop] = useDrop({
+    accept: COLOR_TILE,
+    drop: item => {
+      console.log("dropped", item);
+      if (currentView === PALETTE_VIEW) {
+        addVariantToCurrentSelectedColor(item);
+      }
+    },
+    collect: monitor => ({
+      canDrop: monitor.canDrop()
+    })
+  });
+
+  const containerClass = cx(styles.container, {
+    [styles.canDrop]: canDrop
+  });
   return (
-    <div className={styles.container}>
+    <div ref={drop} className={containerClass}>
       {renderViewSwitcher()} {renderCurrentView()}
     </div>
   );

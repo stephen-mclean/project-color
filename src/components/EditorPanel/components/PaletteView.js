@@ -17,7 +17,7 @@ const PlaceHolder = () => {
 };
 
 const PaletteView = ({ colors }) => {
-  return colors && colors.length > 1 ? (
+  return colors && colors.length ? (
     <ColorList colors={colors} />
   ) : (
     <PlaceHolder />

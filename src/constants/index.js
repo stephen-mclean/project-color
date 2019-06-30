@@ -7,3 +7,5 @@ export {
 } from "./routes";
 
 export { VARIANT_MODE, PALETTE_MODE } from "./modes";
+
+export { COLOR_TILE } from "./draggable";

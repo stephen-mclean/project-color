@@ -3,4 +3,9 @@
   border-left: 1px solid var(--colors-grey-lighten-40);
   padding: var(--component-padding) var(--component-padding) 0
     var(--component-padding);
+
+  &.canDrop {
+    border: none;
+    box-shadow: -1px 0px 5px var(--colors-primary-base);
+  }
 }

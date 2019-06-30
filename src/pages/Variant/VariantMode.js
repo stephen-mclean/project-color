@@ -27,7 +27,7 @@ const VariantMode = () => {
     const base = tinycolor(hex);
     return oldVariants.map(variant => {
       let updatedColor;
-      switch (variant.type) {
+      switch (variant.variantType) {
         case VARIANT_TYPES.lighten:
           updatedColor = base.lighten(variant.interval).toHexString();
           break;
@@ -41,7 +41,7 @@ const VariantMode = () => {
           updatedColor = base.saturate(variant.interval).toHexString();
           break;
         default:
-          console.warning("unable to update variant", variant);
+          console.warn("unable to update variant", variant);
       }
 
       return {
