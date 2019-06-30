@@ -34,6 +34,8 @@ const EditorPanel = () => {
     });
   }, [pairs, flatColors]);
 
+  const [newPairs, setNewPairs] = useState([]);
+
   useEffect(() => {
     if (currentMode === PALETTE_MODE) {
       setCurrentView(PAIRS_VIEW);
@@ -77,7 +79,9 @@ const EditorPanel = () => {
         {currentView === PALETTE_VIEW && (
           <PaletteView colors={currentColor.variants} />
         )}
-        {currentView === PAIRS_VIEW && <PairsView pairs={mappedPairs} />}
+        {currentView === PAIRS_VIEW && (
+          <PairsView pairs={mappedPairs} newPairs={newPairs} />
+        )}
       </div>
     );
   };
@@ -95,12 +99,36 @@ const EditorPanel = () => {
     }
   };
 
+  const addColorToPair = color => {
+    const updatedPairs = [...newPairs];
+
+    if (updatedPairs.length === 0) {
+      updatedPairs.push({});
+    }
+
+    let colorPair = updatedPairs[updatedPairs.length - 1];
+
+    if (colorPair.background && colorPair.foreground) {
+      colorPair = { background: color };
+      updatedPairs.push(colorPair);
+    } else if (colorPair.background) {
+      colorPair.foreground = color;
+    } else {
+      colorPair.background = color;
+    }
+
+    console.log("new pairs", updatedPairs);
+    setNewPairs(updatedPairs);
+  };
+
   const [{ canDrop }, drop] = useDrop({
     accept: COLOR_TILE,
     drop: item => {
       console.log("dropped", item);
       if (currentView === PALETTE_VIEW) {
         addVariantToCurrentSelectedColor(item);
+      } else {
+        addColorToPair(item);
       }
     },
     collect: monitor => ({

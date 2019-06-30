@@ -40,19 +40,23 @@ const NewColorPair = ({
         </div>
       </div>
 
-      <ColorTile
-        color={background}
-        name="background"
-        hideName={false}
-        hideHex={false}
-        className="margin-right"
-      />
-      <ColorTile
-        color={foreground}
-        name="foreground"
-        hideName={false}
-        hideHex={false}
-      />
+      {background && (
+        <ColorTile
+          color={background}
+          name="background"
+          hideName={false}
+          hideHex={false}
+          className="margin-right"
+        />
+      )}
+      {foreground && (
+        <ColorTile
+          color={foreground}
+          name="foreground"
+          hideName={false}
+          hideHex={false}
+        />
+      )}
     </div>
   );
 };
