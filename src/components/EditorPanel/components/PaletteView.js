@@ -1,27 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import cx from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ColorList from "../../ColorPaletteList/ColorPaletteList";
-
-import styles from "./PaletteView.module.scss";
-
-const PlaceHolder = () => {
-  const iconClass = cx(styles.icon, "margin-bottom--xxs");
-  return (
-    <div className={styles.placeholder}>
-      <FontAwesomeIcon icon="box" className={iconClass} />
-      <div>Drag colors here to add to your palette</div>
-    </div>
-  );
-};
+import InfoMessage from "../../InfoMessage/InfoMessage";
 
 const PaletteView = ({ colors }) => {
   return colors && colors.length ? (
     <ColorList colors={colors} />
   ) : (
-    <PlaceHolder />
+    <InfoMessage icon="box" message="Drag colors here to add to your palette" />
   );
 };
 
