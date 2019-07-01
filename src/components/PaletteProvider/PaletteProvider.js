@@ -1,25 +1,31 @@
 import React, { createContext, useState, useMemo } from "react";
 import tinycolor from "tinycolor2";
 import uuid from "uuid";
+import { withRouter } from "react-router-dom";
+
+import { ALL_ROUTES } from "../../constants";
 
 export const PaletteContext = createContext();
 
-const PaletteProvider = ({ children }) => {
+const PaletteProvider = ({ children, location }) => {
+  const defaultBaseColorID = uuid();
+  const defaultBaseColorBaseID = uuid();
   const [palette, setPalette] = useState({
     colors: [
       {
         name: "color-one",
-        id: uuid(),
+        id: defaultBaseColorID,
         base: {
           name: "base",
-          id: uuid(),
+          id: defaultBaseColorBaseID,
           color: tinycolor.random().toHexString(),
           isMain: true
         },
         variants: []
       }
     ],
-    pairs: []
+    pairs: [],
+    currentSelectedColor: defaultBaseColorID
   });
 
   const flatColors = useMemo(() => {
@@ -28,6 +34,11 @@ const PaletteProvider = ({ children }) => {
       []
     );
   }, [palette]);
+
+  const currentMode = useMemo(() => {
+    const currentRoute = ALL_ROUTES.find(r => r.path === location.pathname);
+    return currentRoute ? currentRoute.mode : null;
+  }, [location.pathname]);
 
   const addBaseColor = hex => {
     const newColor = {
@@ -70,8 +81,29 @@ const PaletteProvider = ({ children }) => {
       ...palette
     };
 
+    if (palette.currentSelectedColor === color.id) {
+      newPalette.currentSelectedColor = palette.colors[colorIdx - 1].id;
+    }
+
     newPalette.colors.splice(colorIdx, 1);
     setPalette(newPalette);
+  };
+
+  const addVariantToBaseColor = (variant, baseColor) => {
+    const updatedColor = { ...baseColor };
+
+    const variantIdx = updatedColor.variants.findIndex(
+      v => v.name === variant.name
+    );
+
+    if (variantIdx === -1) {
+      updatedColor.variants.push(variant);
+      updateBaseColor(updatedColor);
+    }
+  };
+
+  const isVariantPresent = (baseColor, variantId) => {
+    return baseColor.variants.find(v => v.id === variantId);
   };
 
   const addColorPair = (background, foreground) => {
@@ -80,6 +112,20 @@ const PaletteProvider = ({ children }) => {
       bg: background.id,
       fg: foreground.id
     };
+
+    const backgroundBaseColor = palette.colors.find(
+      c => c.id === background.baseColorId
+    );
+    if (!isVariantPresent(backgroundBaseColor, background.id)) {
+      addVariantToBaseColor(background, backgroundBaseColor);
+    }
+
+    const foregroundBaseColor = palette.colors.find(
+      c => c.id === foreground.baseColorId
+    );
+    if (!isVariantPresent(foregroundBaseColor, foreground.id)) {
+      addVariantToBaseColor(foreground, foregroundBaseColor);
+    }
 
     const newPalette = { ...palette };
     newPalette.pairs.push(pair);
@@ -100,6 +146,14 @@ const PaletteProvider = ({ children }) => {
     }
   };
 
+  const setCurrentSelectedColor = id => {
+    const newPalette = { ...palette };
+    newPalette.currentSelectedColor = id;
+
+    console.log("palette with new selected color", newPalette);
+    setPalette(newPalette);
+  };
+
   const getContextValue = () => {
     return {
       palette,
@@ -108,7 +162,10 @@ const PaletteProvider = ({ children }) => {
       removeBaseColor,
       addColorPair,
       removeColorPair,
-      flatColors
+      flatColors,
+      currentMode,
+      addVariantToBaseColor,
+      setCurrentSelectedColor
     };
   };
 
@@ -119,4 +176,4 @@ const PaletteProvider = ({ children }) => {
   );
 };
 
-export default PaletteProvider;
+export default withRouter(PaletteProvider);

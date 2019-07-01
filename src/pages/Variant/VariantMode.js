@@ -18,7 +18,8 @@ const VariantMode = () => {
     palette,
     updateBaseColor,
     addBaseColor,
-    removeBaseColor
+    removeBaseColor,
+    setCurrentSelectedColor
   } = useContext(PaletteContext);
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -27,7 +28,7 @@ const VariantMode = () => {
     const base = tinycolor(hex);
     return oldVariants.map(variant => {
       let updatedColor;
-      switch (variant.type) {
+      switch (variant.variantType) {
         case VARIANT_TYPES.lighten:
           updatedColor = base.lighten(variant.interval).toHexString();
           break;
@@ -41,7 +42,7 @@ const VariantMode = () => {
           updatedColor = base.saturate(variant.interval).toHexString();
           break;
         default:
-          console.warning("unable to update variant", variant);
+          console.warn("unable to update variant", variant);
       }
 
       return {
@@ -76,55 +77,9 @@ const VariantMode = () => {
     }
 
     setTabIndex(index);
+    setCurrentSelectedColor(palette.colors[index].id);
 
     return true;
-  };
-
-  const toggleVariant = (baseColor, variant) => {
-    const updatedColor = { ...baseColor };
-    const variantIdx = updatedColor.variants.findIndex(
-      v => v.name === variant.name
-    );
-
-    if (variantIdx > -1) {
-      updatedColor.variants.splice(variantIdx, 1);
-    } else {
-      updatedColor.variants.push(variant);
-    }
-
-    updateBaseColor(updatedColor);
-  };
-
-  const addVariantAsBase = variant => {
-    addBaseColor(variant.color);
-  };
-
-  /**
-   * Return custom styles for a variant in the list.
-   */
-  const getCustomVariantStyles = (baseColor, variant) => {
-    const foundVariantIdx = baseColor.variants.findIndex(
-      v => v.name === variant.name
-    );
-    if (foundVariantIdx > -1) {
-      let variantComplement = tinycolor(variant.color)
-        .complement()
-        .toHexString();
-
-      variantComplement = tinycolor
-        .mostReadable(variant.color, [variantComplement], {
-          includeFallbackColors: true,
-          level: "AAA",
-          size: "large"
-        })
-        .toHexString();
-
-      return {
-        "--color-tile-border-color": variantComplement
-      };
-    }
-
-    return {};
   };
 
   const shouldShowCloseBtn = palette.colors.length > 1;
@@ -175,14 +130,7 @@ const VariantMode = () => {
         />
       </div>
 
-      <VariantGenerator
-        color={color.base.color}
-        onVariantClick={variant => toggleVariant(color, variant)}
-        onVariantDoubleClick={addVariantAsBase}
-        getCustomVariantStyles={variant =>
-          getCustomVariantStyles(color, variant)
-        }
-      />
+      <VariantGenerator color={color.base.color} baseColorId={color.id} />
     </TabPanel>
   ));
 

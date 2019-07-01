@@ -72,7 +72,8 @@
 
   &:hover,
   &:active,
-  &:focus {
+  &:focus,
+  &.btn--active {
     background-color: var(--btn--link-bg-color);
     color: var(--btn-darken-color);
   }

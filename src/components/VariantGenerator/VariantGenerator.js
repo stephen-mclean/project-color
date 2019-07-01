@@ -4,6 +4,7 @@ import tinycolor from "tinycolor2";
 import uuid from "uuid";
 
 import ColorPaletteList from "../ColorPaletteList/ColorPaletteList";
+import DraggableColorTile from "../ColorTile/DraggableColorTile";
 import { VARIANT_TYPES } from "../../constants";
 
 /**
@@ -11,6 +12,7 @@ import { VARIANT_TYPES } from "../../constants";
  */
 const VariantGenerator = ({
   color,
+  baseColorId,
   interval,
   onVariantClick,
   onVariantDoubleClick,
@@ -28,8 +30,9 @@ const VariantGenerator = ({
         name: `lighten-${cumulitiveInterval}`,
         color: c.toHexString(),
         id: uuid(),
-        type: VARIANT_TYPES.lighten,
-        interval: cumulitiveInterval
+        variantType: VARIANT_TYPES.lighten,
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -50,8 +53,9 @@ const VariantGenerator = ({
         name: `darken-${cumulitiveInterval}`,
         color: c.toHexString(),
         id: uuid(),
-        type: VARIANT_TYPES.darken,
-        interval: cumulitiveInterval
+        variantType: VARIANT_TYPES.darken,
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -72,8 +76,9 @@ const VariantGenerator = ({
         name: `desaturate-${cumulitiveInterval}`,
         color: c.toHexString(),
         id: uuid(),
-        type: VARIANT_TYPES.desaturate,
-        interval: cumulitiveInterval
+        variantType: VARIANT_TYPES.desaturate,
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -94,8 +99,9 @@ const VariantGenerator = ({
         name: `saturate-${cumulitiveInterval}`,
         color: c.toHexString(),
         id: uuid(),
-        type: VARIANT_TYPES.saturate,
-        interval: cumulitiveInterval
+        variantType: VARIANT_TYPES.saturate,
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -103,6 +109,20 @@ const VariantGenerator = ({
 
     return result;
   }, [color, interval]);
+
+  const renderTile = (color, className, onClick, hideName, hideHex) => (
+    <DraggableColorTile
+      dragItem={{ ...color }}
+      key={color.name}
+      color={color.color}
+      name={color.name}
+      size={color.isMain ? "lg" : "md"}
+      className={className}
+      onClick={onClick}
+      hideName={hideName}
+      hideHex={hideHex}
+    />
+  );
 
   return (
     <div>
@@ -114,6 +134,7 @@ const VariantGenerator = ({
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
         getCustomTileStyle={getCustomVariantStyles}
+        renderTileBy={renderTile}
       />
       <ColorPaletteList
         name="Darker"
@@ -123,6 +144,7 @@ const VariantGenerator = ({
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
         getCustomTileStyle={getCustomVariantStyles}
+        renderTileBy={renderTile}
       />
       <ColorPaletteList
         name="Desaturated"
@@ -132,6 +154,7 @@ const VariantGenerator = ({
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
         getCustomTileStyle={getCustomVariantStyles}
+        renderTileBy={renderTile}
       />
       <ColorPaletteList
         name="Saturated"
@@ -141,6 +164,7 @@ const VariantGenerator = ({
         onColorClick={onVariantClick}
         onColorDoubleClick={onVariantDoubleClick}
         getCustomTileStyle={getCustomVariantStyles}
+        renderTileBy={renderTile}
       />
     </div>
   );
@@ -151,6 +175,10 @@ VariantGenerator.propTypes = {
    * The color to generate variants of
    */
   color: PropTypes.string.isRequired,
+  /**
+   * Base color ID to add to the generated variants
+   */
+  baseColorId: PropTypes.string,
   /**
    * The step between each variant generated in %
    */
