@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import cx from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -17,7 +18,13 @@ const PlaceHolder = () => {
   );
 };
 
-const PairsView = ({ pairs, newPairs }) => {
+const PairsView = ({
+  pairs,
+  newPairs,
+  onToggleNewPair,
+  onDismissNewPair,
+  onAcceptNewPair
+}) => {
   if (!pairs.length && !newPairs.length) {
     return <PlaceHolder />;
   }
@@ -33,6 +40,9 @@ const PairsView = ({ pairs, newPairs }) => {
             background={bg}
             foreground={fg}
             className="margin-bottom"
+            onExchange={() => onToggleNewPair(pair)}
+            onDismiss={() => onDismissNewPair(pair)}
+            onAccept={() => onAcceptNewPair(pair)}
           />
         );
       })}
@@ -41,6 +51,35 @@ const PairsView = ({ pairs, newPairs }) => {
       ))}
     </div>
   );
+};
+
+PairsView.propTypes = {
+  /**
+   * Array of pairs to display
+   */
+  pairs: PropTypes.array.isRequired,
+  /**
+   * Array of potential pairs to display
+   */
+  newPairs: PropTypes.array.isRequired,
+  /**
+   * Toggle callback for new pair
+   */
+  onToggleNewPair: PropTypes.func,
+  /**
+   * Accept callback for new pair
+   */
+  onAcceptNewPair: PropTypes.func,
+  /**
+   * Dismiss callback for new pair
+   */
+  onDismissNewPair: PropTypes.func
+};
+
+PairsView.defaultProps = {
+  onToggleNewPair: () => {},
+  onAcceptNewPair: () => {},
+  onDismissNewPair: () => {}
 };
 
 export default PairsView;

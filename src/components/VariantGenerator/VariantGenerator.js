@@ -12,6 +12,7 @@ import { VARIANT_TYPES } from "../../constants";
  */
 const VariantGenerator = ({
   color,
+  baseColorId,
   interval,
   onVariantClick,
   onVariantDoubleClick,
@@ -30,7 +31,8 @@ const VariantGenerator = ({
         color: c.toHexString(),
         id: uuid(),
         variantType: VARIANT_TYPES.lighten,
-        interval: cumulitiveInterval
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -52,7 +54,8 @@ const VariantGenerator = ({
         color: c.toHexString(),
         id: uuid(),
         variantType: VARIANT_TYPES.darken,
-        interval: cumulitiveInterval
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -74,7 +77,8 @@ const VariantGenerator = ({
         color: c.toHexString(),
         id: uuid(),
         variantType: VARIANT_TYPES.desaturate,
-        interval: cumulitiveInterval
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -96,7 +100,8 @@ const VariantGenerator = ({
         color: c.toHexString(),
         id: uuid(),
         variantType: VARIANT_TYPES.saturate,
-        interval: cumulitiveInterval
+        interval: cumulitiveInterval,
+        baseColorId
       });
 
       cumulitiveInterval += interval;
@@ -170,6 +175,10 @@ VariantGenerator.propTypes = {
    * The color to generate variants of
    */
   color: PropTypes.string.isRequired,
+  /**
+   * Base color ID to add to the generated variants
+   */
+  baseColorId: PropTypes.string,
   /**
    * The step between each variant generated in %
    */

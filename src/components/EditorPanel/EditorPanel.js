@@ -15,9 +15,13 @@ const PALETTE_VIEW = "palette_view";
 const PAIRS_VIEW = "pairs_view";
 
 const EditorPanel = () => {
-  const { currentMode, palette, flatColors, updateBaseColor } = useContext(
-    PaletteContext
-  );
+  const {
+    currentMode,
+    palette,
+    flatColors,
+    addVariantToBaseColor,
+    addColorPair
+  } = useContext(PaletteContext);
   const { pairs } = palette;
 
   const currentColor = palette.colors.find(
@@ -73,6 +77,34 @@ const EditorPanel = () => {
     );
   };
 
+  const onToggleNewPair = pair => {
+    const updatedPair = {
+      background: pair.foreground,
+      foreground: pair.background
+    };
+
+    const updatedPairs = [...newPairs];
+    const idxOfExistingPair = newPairs.indexOf(pair);
+    if (idxOfExistingPair > -1) {
+      updatedPairs.splice(idxOfExistingPair, 1, updatedPair);
+      setNewPairs(updatedPairs);
+    }
+  };
+
+  const onDismissNewPair = pair => {
+    const updatedPairs = [...newPairs];
+    const idx = newPairs.indexOf(pair);
+    if (idx > -1) {
+      updatedPairs.splice(idx, 1);
+      setNewPairs(updatedPairs);
+    }
+  };
+
+  const onAcceptNewPair = pair => {
+    addColorPair(pair.background, pair.foreground);
+    onDismissNewPair(pair);
+  };
+
   const renderCurrentView = () => {
     return (
       <div>
@@ -80,23 +112,16 @@ const EditorPanel = () => {
           <PaletteView colors={currentColor.variants} />
         )}
         {currentView === PAIRS_VIEW && (
-          <PairsView pairs={mappedPairs} newPairs={newPairs} />
+          <PairsView
+            pairs={mappedPairs}
+            newPairs={newPairs}
+            onToggleNewPair={onToggleNewPair}
+            onDismissNewPair={onDismissNewPair}
+            onAcceptNewPair={onAcceptNewPair}
+          />
         )}
       </div>
     );
-  };
-
-  const addVariantToCurrentSelectedColor = variant => {
-    const updatedColor = { ...currentColor };
-
-    const variantIdx = updatedColor.variants.findIndex(
-      v => v.name === variant.name
-    );
-
-    if (variantIdx === -1) {
-      updatedColor.variants.push(variant);
-      updateBaseColor(updatedColor);
-    }
   };
 
   const addColorToPair = color => {
@@ -126,7 +151,7 @@ const EditorPanel = () => {
     drop: item => {
       console.log("dropped", item);
       if (currentView === PALETTE_VIEW) {
-        addVariantToCurrentSelectedColor(item);
+        addVariantToBaseColor(item, currentColor);
       } else {
         addColorToPair(item);
       }

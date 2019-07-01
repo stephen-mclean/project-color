@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import cx from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -22,6 +23,13 @@ const PaletteView = ({ colors }) => {
   ) : (
     <PlaceHolder />
   );
+};
+
+PaletteView.propTypes = {
+  /**
+   * List of colors to display
+   */
+  colors: PropTypes.array.isRequired
 };
 
 export default PaletteView;

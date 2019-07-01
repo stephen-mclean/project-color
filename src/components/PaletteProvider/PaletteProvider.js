@@ -81,8 +81,29 @@ const PaletteProvider = ({ children, location }) => {
       ...palette
     };
 
+    if (palette.currentSelectedColor === color.id) {
+      newPalette.currentSelectedColor = palette.colors[colorIdx - 1].id;
+    }
+
     newPalette.colors.splice(colorIdx, 1);
     setPalette(newPalette);
+  };
+
+  const addVariantToBaseColor = (variant, baseColor) => {
+    const updatedColor = { ...baseColor };
+
+    const variantIdx = updatedColor.variants.findIndex(
+      v => v.name === variant.name
+    );
+
+    if (variantIdx === -1) {
+      updatedColor.variants.push(variant);
+      updateBaseColor(updatedColor);
+    }
+  };
+
+  const isVariantPresent = (baseColor, variantId) => {
+    return baseColor.variants.find(v => v.id === variantId);
   };
 
   const addColorPair = (background, foreground) => {
@@ -91,6 +112,20 @@ const PaletteProvider = ({ children, location }) => {
       bg: background.id,
       fg: foreground.id
     };
+
+    const backgroundBaseColor = palette.colors.find(
+      c => c.id === background.baseColorId
+    );
+    if (!isVariantPresent(backgroundBaseColor, background.id)) {
+      addVariantToBaseColor(background, backgroundBaseColor);
+    }
+
+    const foregroundBaseColor = palette.colors.find(
+      c => c.id === foreground.baseColorId
+    );
+    if (!isVariantPresent(foregroundBaseColor, foreground.id)) {
+      addVariantToBaseColor(foreground, foregroundBaseColor);
+    }
 
     const newPalette = { ...palette };
     newPalette.pairs.push(pair);
@@ -111,6 +146,14 @@ const PaletteProvider = ({ children, location }) => {
     }
   };
 
+  const setCurrentSelectedColor = id => {
+    const newPalette = { ...palette };
+    newPalette.currentSelectedColor = id;
+
+    console.log("palette with new selected color", newPalette);
+    setPalette(newPalette);
+  };
+
   const getContextValue = () => {
     return {
       palette,
@@ -120,7 +163,9 @@ const PaletteProvider = ({ children, location }) => {
       addColorPair,
       removeColorPair,
       flatColors,
-      currentMode
+      currentMode,
+      addVariantToBaseColor,
+      setCurrentSelectedColor
     };
   };
 
