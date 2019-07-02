@@ -1,11 +1,18 @@
 .container {
   grid-area: panel;
   border-left: 1px solid var(--colors-grey-lighten-40);
-  padding: var(--component-padding) var(--component-padding) 0
-    var(--component-padding);
   position: sticky;
-  height: 100vh;
+  height: calc(100vh - 4rem);
   top: 0;
+  overflow: scroll;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .mainContent {
+    padding: var(--component-padding) var(--component-padding) 0
+      var(--component-padding);
+  }
 
   &.canDrop {
     border: none;

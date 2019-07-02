@@ -4,7 +4,8 @@ import {
   faTimes,
   faCheck,
   faExchangeAlt,
-  faBox
+  faBox,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlus, faTimes, faCheck, faExchangeAlt, faBox);
+library.add(faPlus, faTimes, faCheck, faExchangeAlt, faBox, faTrash);

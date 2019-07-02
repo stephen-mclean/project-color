@@ -5,7 +5,7 @@ import uuid from "uuid";
 
 import ColorPaletteList from "../ColorPaletteList/ColorPaletteList";
 import DraggableColorTile from "../ColorTile/DraggableColorTile";
-import { VARIANT_TYPES } from "../../constants";
+import { VARIANT_TYPES, COLOR_TILE } from "../../constants";
 
 /**
  * Based on a base color, this component will generate lists of variants and display them.
@@ -112,7 +112,7 @@ const VariantGenerator = ({
 
   const renderTile = (color, className, onClick, hideName, hideHex) => (
     <DraggableColorTile
-      dragItem={{ ...color }}
+      dragItem={{ ...color, type: COLOR_TILE }}
       key={color.name}
       color={color.color}
       name={color.name}
