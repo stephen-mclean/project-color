@@ -25,8 +25,8 @@ const VariantMode = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const getUpdatedVariants = (hex, oldVariants) => {
-    const base = tinycolor(hex);
     return oldVariants.map(variant => {
+      const base = tinycolor(hex);
       let updatedColor;
       switch (variant.variantType) {
         case VARIANT_TYPES.lighten:
