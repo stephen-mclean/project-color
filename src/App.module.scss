@@ -1,9 +1,9 @@
 .appContainer {
   display: grid;
   grid-template-areas:
-    "nav nav"
+    "nav panel"
     "main panel"
-    "footer footer";
+    "footer panel";
   grid-template-rows: 4rem 1fr 4rem;
   grid-auto-columns: 3fr 1fr;
 }

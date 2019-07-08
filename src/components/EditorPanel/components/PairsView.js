@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AccessiblePair from "../../AccessiblePair/AccessiblePair";
+import DraggableAccessiblePair from "../../AccessiblePair/DraggableAccessiblePair";
 import NewColorPair from "../../NewColorPair/NewColorPair";
 import InfoMessage from "../../InfoMessage/InfoMessage";
+import { EDITOR_PANEL_PAIR } from "../../../constants";
 
 const PairsView = ({
   pairs,
@@ -36,7 +37,13 @@ const PairsView = ({
         );
       })}
       {pairs.map(pair => (
-        <AccessiblePair {...pair} key={pair.id} className="margin-bottom" />
+        <DraggableAccessiblePair
+          dragItem={{ ...pair, type: EDITOR_PANEL_PAIR }}
+          {...pair}
+          key={pair.id}
+          className="margin-bottom"
+          hideCloseBtn={true}
+        />
       ))}
     </div>
   );

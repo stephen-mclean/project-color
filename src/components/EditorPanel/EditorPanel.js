@@ -186,10 +186,12 @@ const EditorPanel = () => {
       <div className={styles.mainContent}>
         {renderViewSwitcher()} {renderCurrentView()}
       </div>
-      <Trash
-        accept={[EDITOR_PANEL_PAIR, EDITOR_PANEL_VARIANT]}
-        onDrop={onTrashDrop}
-      />
+      <div className={styles.trashContainer}>
+        <Trash
+          accept={[EDITOR_PANEL_PAIR, EDITOR_PANEL_VARIANT]}
+          onDrop={onTrashDrop}
+        />
+      </div>
     </div>
   );
 };

@@ -2,16 +2,21 @@
   grid-area: panel;
   border-left: 1px solid var(--colors-grey-lighten-40);
   position: sticky;
-  height: calc(100vh - 4rem);
+  height: 100vh;
   top: 0;
-  overflow: scroll;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
 
   .mainContent {
+    height: calc(100% - var(--space-xxxl));
+    overflow-y: scroll;
     padding: var(--component-padding) var(--component-padding) 0
       var(--component-padding);
+  }
+
+  .trashContainer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
   }
 
   &.canDrop {
