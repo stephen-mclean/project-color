@@ -59,6 +59,21 @@ const EditorPanel = () => {
     currentMode === VARIANT_MODE ? PALETTE_VIEW : PAIRS_VIEW
   );
 
+  const [{ canDrop }, drop] = useDrop({
+    accept: COLOR_TILE,
+    drop: item => {
+      console.log("dropped", item);
+      if (currentView === PALETTE_VIEW) {
+        addVariantToBaseColor(item, currentColor);
+      } else {
+        addColorToPair(item);
+      }
+    },
+    collect: monitor => ({
+      canDrop: monitor.canDrop()
+    })
+  });
+
   const renderViewSwitcher = () => {
     const paletteClassName = cx("btn btn--link", {
       "btn--active": currentView === PALETTE_VIEW
@@ -115,10 +130,14 @@ const EditorPanel = () => {
   };
 
   const renderCurrentView = () => {
+    const placeholderIcon = canDrop ? "box-open" : "box";
     return (
       <div>
         {currentView === PALETTE_VIEW && (
-          <PaletteView colors={currentColor.variants} />
+          <PaletteView
+            colors={currentColor.variants}
+            placeholderIcon={placeholderIcon}
+          />
         )}
         {currentView === PAIRS_VIEW && (
           <PairsView
@@ -127,6 +146,7 @@ const EditorPanel = () => {
             onToggleNewPair={onToggleNewPair}
             onDismissNewPair={onDismissNewPair}
             onAcceptNewPair={onAcceptNewPair}
+            placeholderIcon={placeholderIcon}
           />
         )}
       </div>
@@ -162,21 +182,6 @@ const EditorPanel = () => {
       removeColorPair(item);
     }
   };
-
-  const [{ canDrop }, drop] = useDrop({
-    accept: COLOR_TILE,
-    drop: item => {
-      console.log("dropped", item);
-      if (currentView === PALETTE_VIEW) {
-        addVariantToBaseColor(item, currentColor);
-      } else {
-        addColorToPair(item);
-      }
-    },
-    collect: monitor => ({
-      canDrop: monitor.canDrop()
-    })
-  });
 
   const containerClass = cx(styles.container, {
     [styles.canDrop]: canDrop

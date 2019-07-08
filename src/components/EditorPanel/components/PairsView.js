@@ -11,11 +11,15 @@ const PairsView = ({
   newPairs,
   onToggleNewPair,
   onDismissNewPair,
-  onAcceptNewPair
+  onAcceptNewPair,
+  placeholderIcon
 }) => {
   if (!pairs.length && !newPairs.length) {
     return (
-      <InfoMessage icon="box" message="Drag colors here to create pairs" />
+      <InfoMessage
+        icon={placeholderIcon}
+        message="Drag colors here to create pairs"
+      />
     );
   }
 
@@ -69,13 +73,18 @@ PairsView.propTypes = {
   /**
    * Dismiss callback for new pair
    */
-  onDismissNewPair: PropTypes.func
+  onDismissNewPair: PropTypes.func,
+  /**
+   * The icon to show in the placeholder message
+   */
+  placeholderIcon: PropTypes.string
 };
 
 PairsView.defaultProps = {
   onToggleNewPair: () => {},
   onAcceptNewPair: () => {},
-  onDismissNewPair: () => {}
+  onDismissNewPair: () => {},
+  placeholderIcon: "box"
 };
 
 export default PairsView;

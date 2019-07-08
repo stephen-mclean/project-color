@@ -20,7 +20,6 @@
   }
 
   &.canDrop {
-    border: none;
-    box-shadow: -1px 0px 5px var(--colors-primary-base);
+    border-color: var(--colors-primary-base);
   }
 }

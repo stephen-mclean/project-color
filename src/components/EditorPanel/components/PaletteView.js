@@ -21,11 +21,14 @@ const renderTile = (color, className, onClick, hideName, hideHex) => (
   />
 );
 
-const PaletteView = ({ colors }) => {
+const PaletteView = ({ colors, placeholderIcon }) => {
   return colors && colors.length ? (
     <ColorList colors={colors} renderTileBy={renderTile} direction="row" />
   ) : (
-    <InfoMessage icon="box" message="Drag colors here to add to your palette" />
+    <InfoMessage
+      icon={placeholderIcon}
+      message="Drag colors here to add to your palette"
+    />
   );
 };
 
@@ -33,7 +36,15 @@ PaletteView.propTypes = {
   /**
    * List of colors to display
    */
-  colors: PropTypes.array.isRequired
+  colors: PropTypes.array.isRequired,
+  /**
+   * The icon to use for the placeholder message
+   */
+  placeholderIcon: PropTypes.string
+};
+
+PaletteView.defaultProps = {
+  placeholderIcon: "box"
 };
 
 export default PaletteView;
