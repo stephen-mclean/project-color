@@ -1,20 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AccessiblePair from "../../AccessiblePair/AccessiblePair";
+import DraggableAccessiblePair from "../../AccessiblePair/DraggableAccessiblePair";
 import NewColorPair from "../../NewColorPair/NewColorPair";
 import InfoMessage from "../../InfoMessage/InfoMessage";
+import { EDITOR_PANEL_PAIR } from "../../../constants";
 
 const PairsView = ({
   pairs,
   newPairs,
   onToggleNewPair,
   onDismissNewPair,
-  onAcceptNewPair
+  onAcceptNewPair,
+  placeholderIcon
 }) => {
   if (!pairs.length && !newPairs.length) {
     return (
-      <InfoMessage icon="box" message="Drag colors here to create pairs" />
+      <InfoMessage
+        icon={placeholderIcon}
+        message="Drag colors here to create pairs"
+      />
     );
   }
 
@@ -36,7 +41,13 @@ const PairsView = ({
         );
       })}
       {pairs.map(pair => (
-        <AccessiblePair {...pair} key={pair.id} className="margin-bottom" />
+        <DraggableAccessiblePair
+          dragItem={{ ...pair, type: EDITOR_PANEL_PAIR }}
+          {...pair}
+          key={pair.id}
+          className="margin-bottom"
+          hideCloseBtn={true}
+        />
       ))}
     </div>
   );
@@ -62,13 +73,18 @@ PairsView.propTypes = {
   /**
    * Dismiss callback for new pair
    */
-  onDismissNewPair: PropTypes.func
+  onDismissNewPair: PropTypes.func,
+  /**
+   * The icon to show in the placeholder message
+   */
+  placeholderIcon: PropTypes.string
 };
 
 PairsView.defaultProps = {
   onToggleNewPair: () => {},
   onAcceptNewPair: () => {},
-  onDismissNewPair: () => {}
+  onDismissNewPair: () => {},
+  placeholderIcon: "box"
 };
 
 export default PairsView;

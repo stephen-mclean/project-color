@@ -1,0 +1,17 @@
+.container {
+  height: var(--space-xxxl);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--colors-grey-base);
+  border-top: 1px solid var(--colors-grey-lighten-40);
+
+  .icon {
+    font-size: var(--text-md);
+  }
+
+  &.canDrop {
+    background-color: var(--colors-error-lighten-35);
+    color: var(--colors-error-base);
+  }
+}

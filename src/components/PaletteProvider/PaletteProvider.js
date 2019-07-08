@@ -102,6 +102,18 @@ const PaletteProvider = ({ children, location }) => {
     }
   };
 
+  const removeVariantFromBaseColor = (variant, baseColor) => {
+    const updatedColor = { ...baseColor };
+    const variantIdx = updatedColor.variants.findIndex(
+      v => v.name === variant.name
+    );
+
+    if (variantIdx !== -1) {
+      updatedColor.variants.splice(variantIdx, 1);
+      updateBaseColor(updatedColor);
+    }
+  };
+
   const isVariantPresent = (baseColor, variantId) => {
     return baseColor.variants.find(v => v.id === variantId);
   };
@@ -165,6 +177,7 @@ const PaletteProvider = ({ children, location }) => {
       flatColors,
       currentMode,
       addVariantToBaseColor,
+      removeVariantFromBaseColor,
       setCurrentSelectedColor
     };
   };

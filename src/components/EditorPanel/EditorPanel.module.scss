@@ -1,14 +1,25 @@
 .container {
   grid-area: panel;
   border-left: 1px solid var(--colors-grey-lighten-40);
-  padding: var(--component-padding) var(--component-padding) 0
-    var(--component-padding);
   position: sticky;
   height: 100vh;
   top: 0;
 
+  .mainContent {
+    height: calc(100% - var(--space-xxxl));
+    overflow-y: scroll;
+    padding: var(--component-padding) var(--component-padding) 0
+      var(--component-padding);
+  }
+
+  .trashContainer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+
   &.canDrop {
-    border: none;
-    box-shadow: -1px 0px 5px var(--colors-primary-base);
+    border-color: var(--colors-primary-base);
   }
 }

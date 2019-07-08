@@ -8,4 +8,8 @@ export {
 
 export { VARIANT_MODE, PALETTE_MODE } from "./modes";
 
-export { COLOR_TILE } from "./draggable";
+export {
+  COLOR_TILE,
+  EDITOR_PANEL_VARIANT,
+  EDITOR_PANEL_PAIR
+} from "./draggable";
