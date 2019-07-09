@@ -125,18 +125,22 @@ const PaletteProvider = ({ children, location }) => {
       fg: foreground.id
     };
 
-    const backgroundBaseColor = palette.colors.find(
-      c => c.id === background.baseColorId
-    );
-    if (!isVariantPresent(backgroundBaseColor, background.id)) {
-      addVariantToBaseColor(background, backgroundBaseColor);
+    if (!background.isMain) {
+      const backgroundBaseColor = palette.colors.find(
+        c => c.id === background.baseColorId
+      );
+      if (!isVariantPresent(backgroundBaseColor, background.id)) {
+        addVariantToBaseColor(background, backgroundBaseColor);
+      }
     }
 
-    const foregroundBaseColor = palette.colors.find(
-      c => c.id === foreground.baseColorId
-    );
-    if (!isVariantPresent(foregroundBaseColor, foreground.id)) {
-      addVariantToBaseColor(foreground, foregroundBaseColor);
+    if (!foreground.isMain) {
+      const foregroundBaseColor = palette.colors.find(
+        c => c.id === foreground.baseColorId
+      );
+      if (!isVariantPresent(foregroundBaseColor, foreground.id)) {
+        addVariantToBaseColor(foreground, foregroundBaseColor);
+      }
     }
 
     const newPalette = { ...palette };

@@ -8,8 +8,9 @@ import { PaletteContext } from "../../components/PaletteProvider/PaletteProvider
 import ColorPicker from "../../components/ColorPicker/ColorPicker";
 import Input from "../../components/Input/Input";
 import VariantGenerator from "../../components/VariantGenerator/VariantGenerator";
+import DraggableColorTile from "../../components/ColorTile/DraggableColorTile";
 
-import { VARIANT_TYPES } from "../../constants";
+import { VARIANT_TYPES, COLOR_TILE_BASE_COLOR } from "../../constants";
 
 import styles from "./VariantMode.module.scss";
 
@@ -127,6 +128,16 @@ const VariantMode = () => {
           color={color.base.color}
           onChange={hex => onBaseColorChange(color, hex)}
           containerClassName="margin-bottom--xs"
+          renderTile={(tileColor, onClick, hideHex, size, className) => (
+            <DraggableColorTile
+              dragItem={{ ...color.base, type: COLOR_TILE_BASE_COLOR }}
+              color={tileColor}
+              onClick={onClick}
+              hideHex={hideHex}
+              size={size}
+              className={className}
+            />
+          )}
         />
       </div>
 

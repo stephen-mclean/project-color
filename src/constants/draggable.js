@@ -2,6 +2,7 @@
  * Variant / Palette drag types
  */
 export const COLOR_TILE = "color_tile";
+export const COLOR_TILE_BASE_COLOR = "color_tile_base_color";
 
 /**
  * Editor Panel drag types

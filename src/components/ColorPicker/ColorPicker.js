@@ -6,7 +6,13 @@ import ColorTile from "../ColorTile/ColorTile";
 
 import styles from "./ColorPicker.module.scss";
 
-const ColorPicker = ({ color, onChange, className, tileClassName }) => {
+const ColorPicker = ({
+  color,
+  onChange,
+  className,
+  tileClassName,
+  renderTile
+}) => {
   const [isPickerOpen, setPickerOpen] = useState(false);
 
   const onSwatchClick = () => {
@@ -19,13 +25,7 @@ const ColorPicker = ({ color, onChange, className, tileClassName }) => {
 
   return (
     <div className={className}>
-      <ColorTile
-        color={color}
-        onClick={onSwatchClick}
-        hideHex={false}
-        size="lg"
-        className={tileClassName}
-      />
+      {renderTile(color, onSwatchClick, false, "lg", tileClassName)}
 
       {isPickerOpen && (
         <div className={styles.popover}>
@@ -49,11 +49,24 @@ ColorPicker.propTypes = {
   /**
    * Custom classes to apply to the color tile
    */
-  tileClassName: PropTypes.string
+  tileClassName: PropTypes.string,
+  /**
+   * Render prop to custom render the swatch tile
+   */
+  renderTile: PropTypes.func
 };
 
 ColorPicker.defaultProps = {
-  onChange: () => {}
+  onChange: () => {},
+  renderTile: (color, onClick, hideHex, size, className) => (
+    <ColorTile
+      color={color}
+      onClick={onClick}
+      hideHex={hideHex}
+      size={size}
+      className={className}
+    />
+  )
 };
 
 export default ColorPicker;
