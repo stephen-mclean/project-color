@@ -9,6 +9,7 @@ import {
   VARIANT_MODE,
   PALETTE_MODE,
   COLOR_TILE,
+  COLOR_TILE_BASE_COLOR,
   EDITOR_PANEL_VARIANT,
   EDITOR_PANEL_PAIR
 } from "../../constants";
@@ -60,12 +61,12 @@ const EditorPanel = () => {
   );
 
   const [{ canDrop }, drop] = useDrop({
-    accept: COLOR_TILE,
+    accept: [COLOR_TILE, COLOR_TILE_BASE_COLOR],
     drop: item => {
       console.log("dropped", item);
-      if (currentView === PALETTE_VIEW) {
+      if (currentView === PALETTE_VIEW && !item.isMain) {
         addVariantToBaseColor(item, currentColor);
-      } else {
+      } else if (currentView === PAIRS_VIEW) {
         addColorToPair(item);
       }
     },

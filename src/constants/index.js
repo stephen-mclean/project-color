@@ -10,6 +10,7 @@ export { VARIANT_MODE, PALETTE_MODE } from "./modes";
 
 export {
   COLOR_TILE,
+  COLOR_TILE_BASE_COLOR,
   EDITOR_PANEL_VARIANT,
   EDITOR_PANEL_PAIR
 } from "./draggable";
