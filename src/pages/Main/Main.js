@@ -1,10 +1,14 @@
 import React, { useContext, Fragment } from "react";
+import cx from "classnames";
 
 import { VARIANT_MODE, PALETTE_MODE } from "../../constants";
 import { PaletteContext } from "../../components/PaletteProvider/PaletteProvider";
 import ToggleSwitch from "../../components/ToggleSwitch/ToggleSwitch";
 import Variant from "../Variant/VariantMode";
 import Palette from "../Palette/PaletteMode";
+import PaletteExporter from "./components/PaletteExporter";
+
+import styles from "./Main.module.scss";
 
 const Main = () => {
   const { currentMode, setCurrentMode } = useContext(PaletteContext);
@@ -19,14 +23,23 @@ const Main = () => {
     setCurrentMode(newMode);
   };
 
+  const actionsContainerClass = cx(
+    styles.actionsContainer,
+    "margin-bottom--lg"
+  );
+
   return (
     <Fragment>
-      <ToggleSwitch
-        value={isPaletteMode}
-        onChange={toggleMode}
-        label="Show entire palette"
-        className="margin-bottom--lg"
-      />
+      <div className={actionsContainerClass}>
+        <ToggleSwitch
+          value={isPaletteMode}
+          onChange={toggleMode}
+          label="Show entire palette"
+          className="margin-right"
+        />
+        <PaletteExporter />
+      </div>
+
       {!isPaletteMode && renderVariantMode()}
       {isPaletteMode && renderPaletteMode()}
     </Fragment>
