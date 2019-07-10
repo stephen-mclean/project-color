@@ -1,33 +1,16 @@
-import Variant from "../pages/Variant/VariantMode";
-import Palette from "../pages/Palette/PaletteMode";
+import Main from "../pages/Main/Main";
 import About from "../pages/About/About";
-import { VARIANT_MODE, PALETTE_MODE } from "./modes";
 
-export const VARIANT_ROUTE = {
-  path: "/variant",
-  component: Variant,
-  name: "Variant",
-  description:
-    "Choose variants from your base colors. Then add them to your palette.",
-  showInNav: true,
-  mode: VARIANT_MODE
-};
-
-export const PALETTE_ROUTE = {
-  path: "/palette",
-  component: Palette,
-  name: "Palette",
-  description:
-    "View your color palette. Choose color pairs to check accessibility.",
-  showInNav: true,
-  mode: PALETTE_MODE
+export const MAIN_ROUTE = {
+  path: "/main",
+  name: "Main",
+  component: Main
 };
 
 export const ABOUT_ROUTE = {
   path: "/about",
   component: About,
-  name: "About",
-  showInNav: false
+  name: "About"
 };
 
-export const ALL_ROUTES = [VARIANT_ROUTE, PALETTE_ROUTE, ABOUT_ROUTE];
+export const ALL_ROUTES = [MAIN_ROUTE, ABOUT_ROUTE];
