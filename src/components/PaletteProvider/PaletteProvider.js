@@ -3,7 +3,7 @@ import tinycolor from "tinycolor2";
 import uuid from "uuid";
 import { withRouter } from "react-router-dom";
 
-import { ALL_ROUTES } from "../../constants";
+import { VARIANT_MODE } from "../../constants";
 
 export const PaletteContext = createContext();
 
@@ -35,10 +35,7 @@ const PaletteProvider = ({ children, location }) => {
     );
   }, [palette]);
 
-  const currentMode = useMemo(() => {
-    const currentRoute = ALL_ROUTES.find(r => r.path === location.pathname);
-    return currentRoute ? currentRoute.mode : null;
-  }, [location.pathname]);
+  const [currentMode, setCurrentMode] = useState(VARIANT_MODE);
 
   const addBaseColor = hex => {
     const newColor = {
@@ -180,6 +177,7 @@ const PaletteProvider = ({ children, location }) => {
       removeColorPair,
       flatColors,
       currentMode,
+      setCurrentMode,
       addVariantToBaseColor,
       removeVariantFromBaseColor,
       setCurrentSelectedColor
