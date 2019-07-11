@@ -9,9 +9,9 @@ const paletteToScssString = palette => {
     const { name: baseColorName, base, variants } = color;
 
     const baseColorComment = `// ${baseColorName}\n`;
-    const baseVarName = `${baseColorName}-base`;
+    const baseVarName = `$${baseColorName}-base`;
     const baseVarValue = base.color;
-    const baseVarDeclaration = `$${baseVarName}: ${baseVarValue};\n`;
+    const baseVarDeclaration = `${baseVarName}: ${baseVarValue};\n`;
 
     return (
       result +
@@ -19,12 +19,12 @@ const paletteToScssString = palette => {
       baseVarDeclaration +
       variants.reduce((variantResult, variant) => {
         const { name: variantName } = variant;
-        const variantVarName = `${baseColorName}-${variantName}`;
+        const variantVarName = `$${baseColorName}-${variantName}`;
         const variantVarValue = `${variant.variantType}(${baseVarName}, ${
           variant.interval
         }%)`;
         const variantEndComment = `// ${variant.color}`;
-        const variantVarDeclaration = `$${variantVarName}: ${variantVarValue}; ${variantEndComment}\n`;
+        const variantVarDeclaration = `${variantVarName}: ${variantVarValue}; ${variantEndComment}\n`;
 
         return variantResult + variantVarDeclaration;
       }, "")
