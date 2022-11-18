@@ -16,7 +16,7 @@
     "react-dnd-html5-backend": "^8.0.3",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "react-spring": "^8.0.23",
     "react-tabs": "^3.0.0",
     "tinycolor2": "^1.4.1",
@@ -54,7 +54,7 @@
     "@storybook/addon-knobs": "^5.0.5",
     "@storybook/addon-links": "^5.0.11",
     "@storybook/addons": "^5.0.11",
-    "@storybook/react": "^5.0.11",
+    "@storybook/react": "^6.5.13",
     "babel-loader": "^8.0.6"
   }
 }
